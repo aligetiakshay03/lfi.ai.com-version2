@@ -24,13 +24,24 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
     <!-- Typography. Preconnect so the font request starts before the CSS that
-         needs it is parsed; display=swap keeps text visible while it loads. -->
+         needs it is parsed; display=swap keeps text visible while it loads.
+         Loaded as a preload that swaps itself to a stylesheet, so the font
+         CSS does not block first paint (it was ~1s of render-blocking time
+         on mobile). -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400&display=swap"
+      />
+    </noscript>
 
     <!-- Social sharing -->
     <meta property="og:type" content="website" />
@@ -44,8 +55,11 @@
       content="Linkfields is a technology partner across five portfolios - Digital Transformation, Intelligent Enterprise Platforms, Data &amp; AI, Talent Advisory &amp; GCC and Cyber Security. Headquartered in South Africa, delivering globally."
     />
     <meta property="og:url" content="https://lfiai.com/" />
-    <meta property="og:image" content="https://lfiai.com/logo512.png" />
-    <meta property="og:locale" content="en" />
+    <meta property="og:image" content="https://lfiai.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Linkfields - integrating your business for a better future" />
+    <meta property="og:locale" content="en_ZA" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
@@ -55,7 +69,7 @@
       name="twitter:description"
       content="One technology partner across five portfolios. Headquartered in South Africa, delivering globally."
     />
-    <meta name="twitter:image" content="https://lfiai.com/logo512.png" />
+    <meta name="twitter:image" content="https://lfiai.com/og-image.jpg" />
 
     <!-- Structured data. Only facts published by Linkfields Innovations. -->
     <script type="application/ld+json">
@@ -64,22 +78,47 @@
         "@type": "Organization",
         "@id": "https://lfiai.com/#organization",
         "name": "Linkfields Innovations",
-        "alternateName": "LFI",
+        "legalName": "Linkfields Innovations (Pvt) Ltd",
+        "alternateName": ["Linkfields", "LFI", "Linkfields AI"],
         "url": "https://lfiai.com/",
         "logo": "https://lfiai.com/logo512.png",
+        "image": "https://lfiai.com/og-image.jpg",
+        "slogan": "Integrating your business for a better future",
         "foundingDate": "2008",
-        "parentOrganization": {
-          "@type": "Organization",
-          "name": "Linkfields Innovations",
-          "url": "https://www.linkfields.com/"
-        },
+        "foundingLocation": { "@type": "Place", "name": "South Africa" },
         "sameAs": [
           "https://www.linkfields.com/",
           "https://www.linkedin.com/company/linkfieldsinnovations"
         ],
         "email": "sales@linkfields.com",
         "description": "Technology partner across Digital Transformation, Intelligent Enterprise Platforms, Data & AI, Talent Advisory & GCC and Cyber Security. Headquartered in South Africa, delivering globally.",
-        "numberOfEmployees": { "@type": "QuantitativeValue", "minValue": 550 }
+        "numberOfEmployees": { "@type": "QuantitativeValue", "minValue": 550 },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Block H, Midridge Office Estate, International Business Gateway, Cnr 6th Street",
+          "addressLocality": "Midrand",
+          "postalCode": "1684",
+          "addressCountry": "ZA"
+        },
+        "contactPoint": [
+          { "@type": "ContactPoint", "contactType": "sales", "email": "sales@linkfields.com", "telephone": "+27 11 022 6666" },
+          { "@type": "ContactPoint", "contactType": "customer support", "email": "info@linkfields.com" }
+        ],
+        "location": [
+          { "@type": "Place", "name": "Linkfields South Africa (headquarters)", "address": "Block H, Midridge Office Estate, International Business Gateway, Cnr 6th Street, Midrand, 1684, South Africa", "telephone": "+27 11 022 6666" },
+          { "@type": "Place", "name": "Linkfields India", "address": "809, 8th Floor, Gowra Fountain Head, Raheja Mindspace IT Park, Hitech City, Hyderabad, 500081, India", "telephone": "+91 40 4547 4849" },
+          { "@type": "Place", "name": "Linkfields United States", "address": "1604, 447 Broadway, 2nd Floor, New York, 10013, United States", "telephone": "+1 347 871 0999" },
+          { "@type": "Place", "name": "Linkfields United Arab Emirates", "address": "409, Churchill Towers, Business Bay, Dubai, 1686, United Arab Emirates", "telephone": "+971 50 688 5758" },
+          { "@type": "Place", "name": "Linkfields Australia", "address": "Level 40, 140 William Street, Melbourne, 3000, VIC, Australia", "telephone": "+61 45 124 6666" },
+          { "@type": "Place", "name": "Linkfields Botswana", "address": "AGA House, Plot 28576, Gaborone Industrial, Gaborone, Botswana", "telephone": "+267 311 9073" }
+        ],
+        "areaServed": ["South Africa", "India", "United Arab Emirates", "United States", "Australia", "Botswana", "United Kingdom"],
+        "knowsAbout": [
+          "Digital transformation", "Application modernisation", "Robotic process automation", "Enterprise integration",
+          "SAP S/4HANA", "Microsoft Dynamics 365", "CRM", "Artificial intelligence", "Agentic AI", "Generative AI",
+          "Retrieval-augmented generation", "Machine learning", "Data analytics", "AI governance",
+          "Global Capability Centres", "Cyber security", "Quality engineering"
+        ]
       }
     </script>
     <script type="application/ld+json">
@@ -250,7 +289,8 @@
 
         <h2>Banking and financial services analytics</h2>
         <ul>
-          <li><a href="/BankingAnalytics">Banking customer churn and segmentation</a></li>
+          <li><a href="https://bankingchurn.lfidemo.com/">Banking customer churn</a></li>
+          <li><a href="https://bankingsegment.lfidemo.com/">Banking customer segmentation</a></li>
           <li><a href="https://finsight.lfidemo.com/">FinSight</a> - financial insight and reporting analytics.</li>
           <li><a href="https://creditrisk.lfidemo.com/">Credit Risk Analytics</a> - risk scoring for lenders.</li>
           <li><a href="https://bankingclaimsfraud.lfidemo.com/">Banking Claims Fraud Detection</a></li>
@@ -262,8 +302,10 @@
 
         <h2>Telecom analytics</h2>
         <ul>
-          <li><a href="/TelecomAnalytics">Telecom customer churn and segmentation</a></li>
-          <li><a href="/BankingTelecomAnalytics">Combined banking and telecom customer analytics</a></li>
+          <li><a href="https://telecomchurn.lfidemo.com/">Telecom customer churn</a></li>
+          <li><a href="https://telecomsegment.lfidemo.com/">Telecom customer segmentation</a></li>
+          <li><a href="https://banktelecomchurn.lfidemo.com/">Banking and telecom customer churn</a></li>
+          <li><a href="https://bankingtelecosmartsegment.lfidemo.com/">Banking and telecom smart segmentation</a></li>
           <li><a href="https://bankingtelcorevenuenbo.lfidemo.com/">Next Best Offer (NBO) revenue analytics</a></li>
           <li><a href="https://telecomnbodataaddon.lfidemo.com/">NBO Data Recommendation Engine</a></li>
           <li><a href="https://kpi.lfidemo.com/">Smart KPI monitoring</a></li>

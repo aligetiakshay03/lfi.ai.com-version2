@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import Reveal from "../ui/Reveal";
+import useFitScreen from "../ui/useFitScreen";
 import SectionHeading from "../ui/SectionHeading";
 import Icon from "../ui/Icon";
 import Button from "../ui/Button";
@@ -63,13 +64,28 @@ function Tech({ ids }) {
 }
 
 export default function Products() {
+  const sectionRef = useRef(null);
+
+  /* Heading, lede, CTA and both rows of cards on one screen under the navbar
+     (ui/useFitScreen and the data-fit rules in Products.css): "0" roomy,
+     "1" shorter windows, "2" shorter still and without the tech tags, "3"
+     every gap at its minimum, for short laptop screens. Too
+     short or narrow for any of them, it falls back to its natural height. */
+  useFitScreen(sectionRef, { columns: ".lfi-products__inner", levels: ["0", "1", "2", "3"] });
+
   return (
-    <section className="lfi-section lfi-section--alt lfi-products" id="products" data-light="amber">
-      <div className="lfi-container">
+    <section
+      ref={sectionRef}
+      className="lfi-section lfi-section--alt lfi-products"
+      id="products"
+      data-light="amber"
+    >
+      <div className="lfi-container lfi-products__inner">
         <div className="lfi-section-head">
           <SectionHeading
             eyebrow="Product portfolio"
             title="Linkfields software you can open and use."
+            ledeDelay={420}
             /* This used to read "Each of these is a working build with a
                public demonstration behind it", which stopped being true the
                moment the portfolio was completed: SiteSense has no public
@@ -77,7 +93,7 @@ export default function Products() {
                contradicts is worse than a precise one. */
             lede="Working builds with public demonstrations - a faster way to judge the work than any case study. Where there is no public build, the card points you at us."
           />
-          <Reveal delay={80} from="none">
+          <Reveal delay={560} from="none" className="lfi-products__cta">
             <Button to="/demos" variant="ghost">
               Browse all {catalogueCount} demonstrations
             </Button>

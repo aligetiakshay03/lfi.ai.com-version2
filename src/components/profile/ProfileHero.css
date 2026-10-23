@@ -226,7 +226,7 @@
 }
 
 /* --- entrance resting state (cleared by the timeline) --------------------- */
-.lfi-js .pf-hero[data-intro=""] [data-intro-item],
+.lfi-js .pf-hero[data-intro=""] [data-intro-item]:not([data-intro-item="lede"]),
 .lfi-js .pf-hero[data-intro=""] .pf-hero__title {
   opacity: 0;
 }

@@ -274,13 +274,25 @@ export const demos = [
     status: "live",
     productId: "finsight",
   },
+  /* Churn and segmentation were one card each per industry, pointing at an
+     on-site page (/BankingAnalytics etc.) that held two buttons. Every other
+     card opens its demo directly, so these do too now: one card per demo.
+     The on-site pages still exist for links already published to them. */
   {
     id: "banking-churn",
-    name: "Banking churn & segmentation",
-    blurb:
-      "Who is about to leave, which segment they sit in, and what that is worth.",
-    href: "/BankingAnalytics",
-    internalRoute: true,
+    name: "Banking Customer Churn",
+    blurb: "Which banking customers are about to leave, and what that is worth.",
+    href: "https://bankingchurn.lfidemo.com/",
+    tech: ["ml", "analytics"],
+    industries: ["banking"],
+    access: "public",
+    status: "live",
+  },
+  {
+    id: "banking-segmentation",
+    name: "Banking Customer Segmentation",
+    blurb: "Which segment each banking customer sits in.",
+    href: "https://bankingsegment.lfidemo.com/",
     tech: ["ml", "analytics"],
     industries: ["banking"],
     access: "public",
@@ -341,10 +353,19 @@ export const demos = [
   // --- telecom --------------------------------------------------------------
   {
     id: "telecom-churn",
-    name: "Telecom churn & segmentation",
-    blurb: "Churn and segmentation modelling on a telecom subscriber base.",
-    href: "/TelecomAnalytics",
-    internalRoute: true,
+    name: "Telecom Customer Churn",
+    blurb: "Churn modelling on a telecom subscriber base.",
+    href: "https://telecomchurn.lfidemo.com/",
+    tech: ["ml", "analytics"],
+    industries: ["telecom"],
+    access: "public",
+    status: "live",
+  },
+  {
+    id: "telecom-segmentation",
+    name: "Telecom Customer Segmentation",
+    blurb: "Segmentation modelling on a telecom subscriber base.",
+    href: "https://telecomsegment.lfidemo.com/",
     tech: ["ml", "analytics"],
     industries: ["telecom"],
     access: "public",
@@ -352,10 +373,19 @@ export const demos = [
   },
   {
     id: "banking-telecom",
-    name: "Banking + Telecom customer analytics",
-    blurb: "One customer view across two industries' data.",
-    href: "/BankingTelecomAnalytics",
-    internalRoute: true,
+    name: "Banking + Telecom Customer Churn",
+    blurb: "Churn modelling on one customer view across two industries' data.",
+    href: "https://banktelecomchurn.lfidemo.com/",
+    tech: ["ml", "analytics"],
+    industries: ["banking", "telecom"],
+    access: "public",
+    status: "live",
+  },
+  {
+    id: "banking-telecom-segmentation",
+    name: "Banking + Telecom Smart Segmentation",
+    blurb: "Segmentation on one customer view across two industries' data.",
+    href: "https://bankingtelecosmartsegment.lfidemo.com/",
     tech: ["analytics", "ml"],
     industries: ["banking", "telecom"],
     access: "public",

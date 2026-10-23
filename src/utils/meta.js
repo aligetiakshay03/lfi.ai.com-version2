@@ -7,7 +7,7 @@
  * machinery than three tags need.
  */
 
-const SITE = "https://lfiai.com";
+import { SITE } from "../data/seo";
 
 function upsert(selector, create) {
   let el = document.head.querySelector(selector);
@@ -27,8 +27,10 @@ function setTag(attr, key, content) {
   el.setAttribute("content", content);
 }
 
-export function setMeta({ title, description, path = "/" }) {
+export function setMeta({ title, description, path = "/", noindex = false }) {
   const url = `${SITE}${path}`;
+
+  setTag("name", "robots", noindex ? "noindex, follow" : "index, follow, max-image-preview:large");
 
   if (title) {
     document.title = title;

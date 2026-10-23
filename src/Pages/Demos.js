@@ -12,6 +12,7 @@ import {
   VERIFIED_ON,
 } from "../data/demos";
 import { setMeta } from "../utils/meta";
+import { ROUTES } from "../data/seo";
 import "./Demos.css";
 
 /**
@@ -33,12 +34,7 @@ export default function Demos() {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    setMeta({
-      title: "AI Demo Catalogue | Linkfields AI",
-      description:
-        "Open and use the working AI and analytics demonstrations built by Linkfields Innovations - conversational AI, document intelligence, fraud detection, churn, forecasting and risk analytics.",
-      path: "/demos",
-    });
+    setMeta(ROUTES.demos);
   }, []);
 
   const results = useMemo(() => {

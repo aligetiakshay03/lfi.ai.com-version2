@@ -97,22 +97,36 @@
 .pf-car__arrow:active {
   transform: scale(0.94);
 }
+/* The button is the 24px tap target (WCAG 2.5.8); the 8px dot is drawn
+   inside it, so the row looks as it did with 6px between dots. */
 .pf-car__dots {
   display: flex;
   align-items: center;
-  gap: 6px;
+  margin: 0 -8px;
 }
 .pf-car__dot {
-  width: 8px;
-  height: 8px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
   padding: 0;
   border: 0;
+  background: none;
+  cursor: pointer;
+  transition: width 0.5s var(--pf-ease);
+}
+.pf-car__dot::before {
+  content: "";
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
   background: var(--lfi-border-strong);
-  cursor: pointer;
   transition: width 0.5s var(--pf-ease), background 0.5s var(--lfi-ease);
 }
 .pf-car__dot[aria-current="true"] {
+  width: 42px;
+}
+.pf-car__dot[aria-current="true"]::before {
   width: 28px;
   background: var(--pf-tone-c);
 }
@@ -623,8 +637,16 @@
 /* compact, continued: drop what is shown twice, tighten type and spacing. */
 .pf-car[data-compact="true"] .pf-pf__count,
 .pf-car[data-compact="true"] .pf-car__progress,
+/* Visually hidden, not display:none: the label is the h4 between the
+   portfolio's h3 and the item h5s, and removing it breaks the outline. */
 .pf-car[data-compact="true"] .pf-car__group--deliver > .pf-pf__label {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 .pf-car[data-compact="true"] .pf-car__inner {
   gap: clamp(0.45rem, 1.2vh, 0.8rem);
@@ -1056,7 +1078,8 @@
   .pf-car__track,
   .pf-car__slide,
   .pf-car__progress span,
-  .pf-car__dot {
+  .pf-car__dot,
+  .pf-car__dot::before {
     transition: none !important;
   }
   .pf-car__slide.is-entering .pf-car__lead > *,

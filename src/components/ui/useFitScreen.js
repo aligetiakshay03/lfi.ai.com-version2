@@ -1,4 +1,5 @@
 import { useLayoutEffect } from "react";
+import { ScrollTrigger } from "../../motion";
 
 /**
  * Fit a section to one screen.
@@ -37,16 +38,25 @@ export default function useFitScreen(
         sec.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
       return cols.every((c) => c.offsetHeight <= room + 1);
     };
-    const fit = () => {
-      if (!wide.matches) {
-        sec.dataset.fit = "natural";
-        return;
-      }
+    const choose = () => {
+      if (!wide.matches) return "natural";
       for (const level of levels) {
         sec.dataset.fit = level;
-        if (fits()) return;
+        if (fits()) return level;
       }
-      sec.dataset.fit = "natural";
+      return "natural";
+    };
+    /* A new level changes the section's height, which moves every scroll
+       trigger below it (and the section's own reveals): positions measured
+       at the old height would fire hundreds of pixels late. */
+    let refreshRaf = 0;
+    const fit = () => {
+      const prev = sec.dataset.fit;
+      sec.dataset.fit = choose();
+      if (sec.dataset.fit !== prev) {
+        cancelAnimationFrame(refreshRaf);
+        refreshRaf = requestAnimationFrame(() => ScrollTrigger.refresh());
+      }
     };
 
     fit();
@@ -68,6 +78,7 @@ export default function useFitScreen(
     window.addEventListener("resize", refit);
     return () => {
       cancelAnimationFrame(raf);
+      cancelAnimationFrame(refreshRaf);
       if (ro) ro.disconnect();
       if (io) io.disconnect();
       if (fonts && fonts.removeEventListener) fonts.removeEventListener("loadingdone", refit);

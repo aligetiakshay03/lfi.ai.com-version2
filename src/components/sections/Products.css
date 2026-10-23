@@ -253,6 +253,148 @@
   }
 }
 
+/* --- heading ----------------------------------------------------------------
+   One line wherever there is room for it. The shared 24ch cap is what broke
+   it in two; set at the display size it is ~19.3em wide, so 4.3vw keeps it
+   inside the container down to 900px with margin to spare. Narrower than
+   that it may wrap, balanced, rather than shrink past legibility. */
+.lfi-products .lfi-heading {
+  max-width: none;
+  text-wrap: balance;
+}
+@media (min-width: 900px) {
+  .lfi-products .lfi-heading {
+    white-space: nowrap;
+    font-size: min(var(--lfi-display-2), 4.3vw);
+  }
+}
+
+/* The head as a grid: eyebrow and heading full width, then the lede with the
+   catalogue link beside it - one row for both rather than the link wrapping
+   onto a row of its own under a full-width heading. */
+@media (min-width: 761px) {
+  .lfi-products .lfi-section-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    /* Column gap only: the flex `gap` this inherits would also open 2rem
+       between eyebrow, heading and lede. */
+    gap: 0 var(--lfi-gap-md);
+    align-items: end;
+  }
+  .lfi-products .lfi-section-head__text {
+    display: contents;
+  }
+  .lfi-products .lfi-section-head :is(.lfi-eyebrow, .lfi-heading) {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+  .lfi-products .lfi-lede {
+    grid-column: 1;
+  }
+  .lfi-products__cta {
+    grid-column: 2;
+  }
+}
+
+/* --- one screen -------------------------------------------------------------
+   `data-fit` is chosen by the fit pass in Products.js, as in Contact: the
+   section is capped at the space under the navbar and the roomiest level at
+   which everything fits wins; "natural" (too short or too narrow for any of
+   them) drops all of this and the section takes its full height. Sizes are
+   in vh so one set of rules serves a 665px laptop and a 1080px monitor. */
+.lfi-section.lfi-products:is([data-fit="0"], [data-fit="1"], [data-fit="2"], [data-fit="3"]) {
+  max-height: calc(100vh - var(--lfi-nav-h, 77px));
+  max-height: calc(100svh - var(--lfi-nav-h, 77px));
+  padding-block: clamp(14px, 3vh, 40px);
+  display: flex;
+  flex-direction: column;
+}
+.lfi-products:is([data-fit="0"], [data-fit="1"], [data-fit="2"], [data-fit="3"]) .lfi-eyebrow {
+  margin-bottom: clamp(0.4rem, 1.3vh, 1rem);
+}
+.lfi-products:is([data-fit="0"], [data-fit="1"], [data-fit="2"], [data-fit="3"]) .lfi-lede {
+  margin-top: clamp(0.4rem, 1.4vh, 1.1rem);
+}
+.lfi-products:is([data-fit="0"], [data-fit="1"], [data-fit="2"], [data-fit="3"]) .lfi-section-head {
+  margin-bottom: clamp(0.8rem, 2.6vh, 2.25rem);
+}
+/* The window keeps its glass and border; it trades its fixed 3:2 ratio for
+   a height that tracks the screen, and the wordmark sits in it as before. */
+.lfi-products:is([data-fit="0"], [data-fit="1"], [data-fit="2"], [data-fit="3"]) .lfi-product__screen {
+  aspect-ratio: auto;
+  height: var(--lfi-pscreen-h);
+  padding: 0.4rem;
+}
+/* A shorter window holds the mark at a larger share of its height, so the
+   wordmarks stay about the size they were in the 3:2 window. */
+.lfi-products:is([data-fit="0"], [data-fit="1"], [data-fit="2"], [data-fit="3"]) .lfi-product__screen--bare img {
+  max-height: 64%;
+}
+.lfi-products:is([data-fit="1"], [data-fit="2"], [data-fit="3"]) .lfi-product__screen--bare img {
+  max-height: 88%;
+}
+.lfi-products:is([data-fit="0"], [data-fit="1"], [data-fit="2"], [data-fit="3"]) .lfi-product__link .lfi-product__screen {
+  margin-bottom: clamp(0.5rem, 1.3vh, 0.85rem);
+}
+
+/* level 0: roomy */
+.lfi-products[data-fit="0"] {
+  --lfi-pscreen-h: clamp(96px, 18vh, 200px);
+}
+/* level 1: shorter windows, two-line descriptions */
+.lfi-products[data-fit="1"] {
+  --lfi-pscreen-h: clamp(76px, 13vh, 150px);
+}
+.lfi-products:is([data-fit="1"], [data-fit="2"], [data-fit="3"]) .lfi-product__blurb {
+  -webkit-line-clamp: 2;
+}
+.lfi-products:is([data-fit="1"], [data-fit="2"], [data-fit="3"]) .lfi-product__link {
+  padding: 0.75rem;
+}
+/* level 2: tightest - the tags go (the kicker already says what it is) */
+.lfi-section.lfi-products[data-fit="2"] {
+  --lfi-pscreen-h: clamp(54px, 9vh, 100px);
+  padding-block: clamp(10px, 2vh, 28px);
+}
+.lfi-products:is([data-fit="2"], [data-fit="3"]) .lfi-product__enquire {
+  margin-top: 0.3rem;
+}
+/* level 3: short laptop screens (~650px under the browser chrome) - the
+   lede steps down a size and every gap takes its minimum */
+.lfi-section.lfi-products[data-fit="3"] {
+  --lfi-pscreen-h: clamp(48px, 8vh, 90px);
+  padding-block: clamp(8px, 1.4vh, 20px);
+}
+.lfi-products[data-fit="3"] .lfi-lede {
+  font-size: 0.95rem;
+}
+.lfi-products[data-fit="3"] .lfi-section-head {
+  margin-bottom: clamp(0.6rem, 1.8vh, 1.5rem);
+}
+.lfi-products[data-fit="3"] .lfi-products__grid {
+  gap: 0.6rem;
+}
+.lfi-products[data-fit="3"] .lfi-product__link {
+  padding: 0.55rem 0.65rem;
+}
+.lfi-products[data-fit="3"] .lfi-product--tile .lfi-product__tech {
+  display: none;
+}
+/* A product set as a name rather than a wordmark scales with the window. */
+.lfi-products:is([data-fit="1"], [data-fit="2"], [data-fit="3"]) .lfi-product__plate {
+  padding: 0;
+  font-size: clamp(0.95rem, 3.2vh, 1.4rem);
+}
+.lfi-products[data-fit="2"] .lfi-products__grid {
+  gap: 0.7rem;
+}
+.lfi-products[data-fit="2"] .lfi-product__link {
+  padding: 0.65rem;
+}
+.lfi-products[data-fit="2"] .lfi-product--tile .lfi-product__tech {
+  display: none;
+}
+
 /* --- responsive ----------------------------------------------------------- */
 @media (max-width: 1080px) {
   .lfi-products__grid {

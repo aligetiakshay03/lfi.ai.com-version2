@@ -1,0 +1,70 @@
+.pf-faq__list {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 920px;
+}
+.pf-faq__item {
+  background: var(--lfi-surface);
+  border: 1px solid var(--lfi-border);
+  border-radius: var(--lfi-radius);
+  transition: border-color var(--lfi-dur) var(--lfi-ease);
+}
+.pf-faq__item[open] {
+  border-color: var(--lfi-border-strong);
+}
+.pf-faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem clamp(1.1rem, 2.4vw, 1.6rem);
+  cursor: pointer;
+  list-style: none;
+}
+.pf-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+.pf-faq__item summary:focus-visible {
+  outline: 2px solid var(--pf-yellow);
+  outline-offset: 2px;
+  border-radius: var(--lfi-radius);
+}
+.pf-faq__item h3 {
+  margin: 0;
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* A plus that turns into a minus. */
+.pf-faq__icon {
+  position: relative;
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+.pf-faq__icon::before,
+.pf-faq__icon::after {
+  content: "";
+  position: absolute;
+  inset: 6px 0 auto;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--pf-yellow);
+  transition: transform var(--lfi-dur) var(--lfi-ease);
+}
+.pf-faq__icon::after {
+  transform: rotate(90deg);
+}
+.pf-faq__item[open] .pf-faq__icon::after {
+  transform: rotate(0deg);
+}
+
+.pf-faq__item p {
+  margin: 0;
+  padding: 0 clamp(1.1rem, 2.4vw, 1.6rem) 1.3rem;
+  color: var(--lfi-text-muted);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  max-width: 72ch;
+}

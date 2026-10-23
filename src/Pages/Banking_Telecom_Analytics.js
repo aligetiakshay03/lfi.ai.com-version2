@@ -1,9 +1,15 @@
 // src/Pages/AnalyticsControlPanel.js
-import React from "react";
+import React, { useEffect } from "react";
+import { setMeta } from "../utils/meta";
+import { ROUTES } from "../data/seo";
 import "../styles/legacy-bootstrap.css";
 import "../styles/AnalyticsControlPanel.css";
 
 export default function BankingAnalytics() {
+  useEffect(() => {
+    setMeta(ROUTES.bankingTelecomAnalytics);
+  }, []);
+
   const handleOpenChurnAnalytics = () => {
     // Navigate to churn analytics or external link
     window.open("https://banktelecomchurn.lfidemo.com", "_blank", "noopener,noreferrer");

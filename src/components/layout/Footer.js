@@ -90,13 +90,15 @@ export default function Footer() {
               <ul>
                 {products.map((p) => (
                   <li key={p.id}>
-                    <a
-                      href={p.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {p.name}
-                    </a>
+                    {/* No public build (href: null) -> the enquiry form,
+                        as the product card does; never an href-less link. */}
+                    {p.href ? (
+                      <a href={p.href} target="_blank" rel="noopener noreferrer">
+                        {p.name}
+                      </a>
+                    ) : (
+                      <a href="/#contact">{p.name}</a>
+                    )}
                   </li>
                 ))}
               </ul>

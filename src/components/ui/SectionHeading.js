@@ -22,6 +22,9 @@ export default function SectionHeading({
   wide = false,
   className = "",
   headingLevel: H = "h2",
+  split,
+  replay,
+  ledeDelay = 180,
   children,
 }) {
   return (
@@ -35,12 +38,14 @@ export default function SectionHeading({
       <LineReveal
         as={H}
         className={`lfi-heading${wide ? " lfi-heading--wide" : ""}`}
+        split={split}
+        replay={replay}
       >
         {title}
       </LineReveal>
 
       {lede ? (
-        <Reveal as="p" className="lfi-lede" delay={180}>
+        <Reveal as="p" className="lfi-lede" delay={ledeDelay}>
           {lede}
         </Reveal>
       ) : null}

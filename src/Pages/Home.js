@@ -12,8 +12,10 @@ import Clients from "../components/profile/Clients";
 import Partners from "../components/profile/Partners";
 import Engage from "../components/profile/Engage";
 import WhyChoose from "../components/profile/WhyChoose";
+import Faq from "../components/profile/Faq";
 import Contact from "../components/sections/Contact";
 import { setMeta } from "../utils/meta";
+import { ROUTES } from "../data/seo";
 
 /**
  * The homepage: the Linkfields Corporate Profile 2026, as a site.
@@ -34,16 +36,13 @@ import { setMeta } from "../utils/meta";
  *   Partners     - who they build with, and recognition.
  *   Engage       - how to buy.
  *   Why          - the summary argument.
+ *   FAQ          - the same facts as direct answers, for people and for
+ *                  answer engines.
  *   Contact      - the ask.
  */
 export default function Home() {
   useEffect(() => {
-    setMeta({
-      title: "Linkfields - Integrating your business for a better future",
-      description:
-        "Linkfields is a technology partner across five portfolios - Digital Transformation, Intelligent Enterprise Platforms, Data & AI, Talent Advisory & GCC and Cyber Security. Headquartered in South Africa, delivering globally.",
-      path: "/",
-    });
+    setMeta(ROUTES.home);
   }, []);
 
   return (
@@ -60,6 +59,7 @@ export default function Home() {
       <Partners />
       <Engage />
       <WhyChoose />
+      <Faq />
       <Contact />
     </Layout>
   );

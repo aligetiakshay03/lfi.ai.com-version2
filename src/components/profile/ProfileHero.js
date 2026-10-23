@@ -5,6 +5,7 @@ import Button from "../ui/Button";
 import CountUp from "../ui/CountUp";
 import GlyphGlobe from "../ui/GlyphGlobe";
 import { hero, portfolios } from "../../data/profile";
+import { WORD_REVEAL, wordStagger, paintAccentWords } from "../../motion/LineReveal";
 import { selectPortfolio } from "./portfolioEvents";
 import "./ProfileHero.css";
 
@@ -37,17 +38,26 @@ export default function ProfileHero() {
     const ctx = gsap.context(() => {
       try {
         split = SplitText.create(titleRef.current, {
-          type: "lines",
+          type: "lines,words",
           mask: "lines",
           aria: "auto",
           linesClass: "pf-hero__line",
         });
+        paintAccentWords(titleRef.current);
         gsap
           .timeline({ defaults: { ease: EASE.out }, onStart: reveal })
+          // Hidden from the first frame, then the same slow word reveal as
+          // every section heading (motion/LineReveal).
+          .set(split.words, WORD_REVEAL.from, 0)
           .from("[data-intro-item='eyebrow']", { y: 14, opacity: 0, duration: 0.7, delay: 0.2 })
-          .from(split.lines, { yPercent: 110, opacity: 0, duration: 1.05, stagger: 0.09 }, "-=0.42")
-          .from("[data-intro-item='portfolios'] > li", { y: 16, opacity: 0, duration: 0.6, stagger: 0.06 }, "-=0.62")
-          .from("[data-intro-item='lede']", { y: 20, opacity: 0, duration: 0.8 }, "-=0.5")
+          .addLabel("title", "-=0.42")
+          .to(split.words, { ...WORD_REVEAL.to, stagger: wordStagger(split.words.length) }, "title")
+          // The rest keeps its original timing, anchored to the title's START:
+          // queued after a ~2.5s title it would leave the hero half-empty.
+          .from("[data-intro-item='portfolios'] > li", { y: 16, opacity: 0, duration: 0.6, stagger: 0.06 }, "title+=0.52")
+          // Slides but does not fade: the lede is the LCP element, and Chrome
+          // does not count an element as painted while its opacity is 0.
+          .from("[data-intro-item='lede']", { y: 20, duration: 0.8 }, "-=0.5")
           .from("[data-intro-item='actions'] > *", { y: 18, opacity: 0, duration: 0.7, stagger: 0.09 }, "-=0.55")
           .from("[data-intro-item='facts'] > *", { y: 16, opacity: 0, duration: 0.6, stagger: 0.07 }, "-=0.45")
           .from("[data-intro-item='cue']", { opacity: 0, duration: 0.6 }, "-=0.3");
@@ -56,7 +66,12 @@ export default function ProfileHero() {
       }
     }, el);
 
+    // The words move when the title re-wraps; their gradient slices follow.
+    const repaint = () => titleRef.current && paintAccentWords(titleRef.current);
+    window.addEventListener("resize", repaint);
+
     return () => {
+      window.removeEventListener("resize", repaint);
       ctx.revert();
       if (split) split.revert();
     };

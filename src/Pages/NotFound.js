@@ -2,15 +2,12 @@ import React, { useEffect } from "react";
 import Layout from "../components/layout/Layout";
 import Button from "../components/ui/Button";
 import { setMeta } from "../utils/meta";
+import { ROUTES } from "../data/seo";
 import "./NotFound.css";
 
 export default function NotFound() {
   useEffect(() => {
-    setMeta({
-      title: "Page not found | Linkfields AI",
-      description: "That page does not exist on lfiai.com.",
-      path: "/404",
-    });
+    setMeta(ROUTES.notFound);
   }, []);
 
   return (

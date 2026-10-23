@@ -303,7 +303,7 @@ export default function Header() {
                   variant="primary"
                   onClick={closeDrawer}
                 >
-                  Let&rsquo;s talk
+                  Contact
                 </Button>
               </div>
             </div>
@@ -334,7 +334,7 @@ export default function Header() {
             size="sm"
             className="lfi-header__cta"
           >
-            Let&rsquo;s talk
+            Contact
           </Button>
 
           <button
