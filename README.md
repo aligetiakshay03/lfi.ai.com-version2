@@ -1,640 +1,567 @@
-# Linkfields AI — lfiai.com
+# Linkfields AI (lfiai.com): Complete Website Information
 
-The AI and analytics site of **Linkfields Innovations**. A Create React App
-single-page app with three parts:
+This document holds everything shown to visitors on the Linkfields AI website, **https://lfiai.com**. It is the knowledge base used by the website chatbot, so every section is written to be answered from on its own. Information last checked: 23 October 2026.
 
-- **`/`** — the Linkfields Corporate Profile 2026 as a scrolling site: who
-  Linkfields is, its five portfolios, products, industries, clients, partners,
-  commercial models, FAQ and contact.
-- **`/demos`** — a filterable catalogue of every working AI and analytics
-  demonstration.
-- **The original routes** — the earlier analytics pages, explorer and internal
-  tools, all kept at their original URLs so published links keep working.
+Technical documentation for developers is in `docs/DEVELOPMENT.md`, not here.
 
-| | |
+## Instructions for the chatbot
+
+- You are the Linkfields website assistant. Answer visitors' questions about Linkfields and the lfiai.com website, using only the information in this document.
+- Answer in plain, friendly language for a business visitor. Keep answers short and direct, and use bullet points for lists.
+- Never mention document IDs, file names, code, or "the knowledge base" in an answer.
+- Include the relevant link, email address or phone number whenever it helps the visitor act.
+- Do not invent prices, timelines, discounts, case studies, client results, staff names or product capabilities. Pricing is not published: every engagement is quoted after Linkfields understands the requirement.
+- SiteSense has no published capabilities. Say so; do not describe what it does.
+- If the answer is not in this document, say you don't have that information and direct the visitor to **sales@linkfields.com** or **https://www.linkfields.com/contact-us**.
+
+---
+
+## 1. About Linkfields (company overview)
+
+- **Company name:** Linkfields Innovations. Its AI brand is **Linkfields AI**, and the AI website is **lfiai.com**. The short name is LFI.
+- **Legal name:** Linkfields Innovations (Pvt) Ltd
+- **Tagline:** "exploring innovation"
+- **Website headline:** "Integrating your business for a better future"
+- **Founded:** 2008, in South Africa
+- **Headquarters:** Midrand, Johannesburg, South Africa
+- **Corporate website:** https://www.linkfields.com
+- **Key facts:** 18+ years in business · 550+ people · 80+ clients · 6 markets · B-BBEE Level 1 contributor
+
+**Company history:** In 2008, Linkfields Innovations (Pvt) Ltd was established in South Africa as a pioneering organisation, aiming to steer its customers towards the next generation of business through innovation fuelled by state-of-the-art automation technologies.
+
+### Who Linkfields is: "One partner across your transformation"
+
+Linkfields is a technology partner across five portfolios: it modernises, runs, analyses, secures and scales the enterprise, combining specialist services with its own software and reusable delivery IP. Linkfields is headquartered in South Africa and delivers globally.
+
+The five portfolios are: Digital Transformation, Intelligent Enterprise Platforms, Data & AI, Talent Advisory & GCC, and Cyber Security (details in section 5).
+
+**Mission:** We help global organisations grow, adapt, scale, reinvent and transform: modernising their technology, running their core platforms, unlocking data and AI, securing what matters and scaling their teams.
+
+**Vision:** To become the preferred partner for creative, customised, integrated and sustainable 360-degree solutions across technology, data, security and talent that enable businesses to thrive and expand.
+
+### Linkfields culture: "Rooted in Africa. Delivering for the world."
+
+Culture themes shown on the website: People first · Vibrant markets · Cape Town · Craft & colour.
+
+**Headquartered in South Africa:** 550+ people bringing African ingenuity, diverse perspectives and deep local understanding to every engagement.
+
+---
+
+## 2. Linkfields in numbers ("Scale that delivers")
+
+| Figure | Meaning |
 | --- | --- |
-| Live site | <https://lfiai.com> |
-| Parent company site | <https://www.linkfields.com> |
-| Stack | React 19, React Router 7, Create React App 5, GSAP 3 (+ SplitText, ScrollTrigger), Lenis smooth scroll |
-| Hosting | Apache, deployed over FTP by Azure Pipelines on push to `main` |
-| Tests | Browser verification harness (`npm run verify`); no unit tests |
+| 3 million | people touched by Linkfields platforms |
+| 5 million | daily digital journeys |
+| 18+ | years of proven track record |
+| 95%+ | delivery success |
+| 80+ | valued clients |
+| 550+ | employees |
+| 100+ | projects completed |
+| 20+ | technology partners in the partner ecosystem |
+| 150+ | digital transformation consultants |
+| 100+ | ERP consultants |
+| 100+ | CRM consultants |
+| 10+ | SAP S/4HANA journeys |
+| 6 | markets |
+| 5+ | data & development centres |
 
 ---
 
-## Contents
+## 3. Where Linkfields operates ("Global reach, local delivery")
 
-1. [Running it locally](#running-it-locally)
-2. [Project structure](#project-structure)
-3. [Routes](#routes)
-4. [The homepage](#the-homepage)
-5. [Content and data](#content-and-data)
-6. [Design system](#design-system)
-7. [Motion and animation](#motion-and-animation)
-8. [SEO, AEO and GEO](#seo-aeo-and-geo)
-9. [Configuration and the contact form](#configuration-and-the-contact-form)
-10. [Verifying the UI](#verifying-the-ui)
-11. [Build and deployment](#build-and-deployment)
-12. [Common tasks](#common-tasks)
-13. [Known limitations](#known-limitations)
+Linkfields operates in 5 countries plus the UK (launching), with 5+ data & development centres and its headquarters in South Africa.
 
----
+**Global presence:** South Africa (HQ) · India · USA · UAE · Australia · UK (launching). Linkfields also has an office in Botswana.
 
-## Running it locally
-
-Requires Node 20+.
-
-```bash
-npm ci          # install from the lockfile (npm install also works)
-npm start       # dev server on http://localhost:3000
-npm run build   # production build into ./build (includes the SEO pass)
-```
-
-`npm start` picks another port if 3000 is taken; to force one:
-
-```bash
-PORT=3001 npm start            # macOS / Linux / Git Bash
-$env:PORT=3001; npm start      # PowerShell
-```
-
-To check a production build, serve `build/` with any static server. The
-per-route HTML files the build generates (`demos.html` etc.) need "clean URL"
-support, which `serve` has by default:
-
-```bash
-npx serve build
-```
-
-| Script | What it does |
+| Location | Role |
 | --- | --- |
-| `npm start` | Dev server with hot reload |
-| `npm run build` | `react-scripts build`, then `scripts/seo-build.mjs` (see [SEO](#seo-aeo-and-geo)) |
-| `npm run verify` | Browser checks against a running site (see [Verifying the UI](#verifying-the-ui)) |
-| `npm test` | Wired to react-scripts; there are currently no tests |
+| Johannesburg (Midrand), South Africa | Headquarters |
+| Hyderabad, India | Offshore delivery centre |
+| Dubai, United Arab Emirates | Middle East |
+| New York, USA | North America |
+| Melbourne, Australia | Asia Pacific |
+| London, United Kingdom | Europe (launching; no office address published yet) |
 
 ---
 
-## Project structure
+## 4. Contact Linkfields: emails, phone numbers and office addresses
 
-```
-public/
-  .htaccess               Apache rules: canonical host, routes, real 404s, caching
-  index.html              head metadata, structured data, no-JS text fallback
-  robots.txt              crawler rules (AI crawlers explicitly allowed)
-  og-image.jpg            1200x630 social share image
-  manifest.json, favicon.ico, logo192.png, logo512.png, apple-touch-icon.png
-  assets/brand/           official logo files (see "Brand")
-  assets/img/             corporate-profile imagery: clients, partners,
-                          culture, industries, ip, portfolio, recognition
-  images/                 product wordmarks used on the product cards
+### Email
+- **Sales enquiries:** sales@linkfields.com
+- **General questions:** info@linkfields.com
+- **Careers and jobs:** careers@linkfields.com
 
-scripts/
-  seo-build.mjs           post-build SEO/AEO/GEO pass (runs in npm run build)
-  verify-ui.js            Playwright browser verification harness
-  generate-globe-mask.mjs builds src/data/landMask.js (globe + map coastline)
+### Online
+- **Contact page (all offices and phone numbers):** https://www.linkfields.com/contact-us
+- **LinkedIn:** https://www.linkedin.com/company/linkfieldsinnovations
+- **Contact form:** at the bottom of the lfiai.com homepage, https://lfiai.com/#contact
 
-src/
-  index.js, App.js        entry point and routes
-  Pages/
-    Home.js               the homepage (section order documented in the file)
-    Demos.js              the /demos catalogue
-    NotFound.js           404 page
-    Industries.js         the original catalogue explorer, kept at /explore
-    *_Analytics.js        the original analytics pages
-  components/
-    layout/               Header (+ mobile drawer), Footer, Layout,
-                          ScrollManager, ScrollProgress, Ambient (lighting)
-    profile/              the homepage sections (one component + CSS each)
-    sections/             Products and Contact are used on the homepage;
-                          the rest are earlier sections, not currently rendered
-    ui/                   shared building blocks: Button, Logo, Icon, Reveal,
-                          SectionHeading, CountUp, GlyphGlobe, useFitScreen ...
-    *.js                  legacy demo components, unchanged in behaviour
-  data/                   ALL site content, separated from presentation
-  motion/                 GSAP setup, LineReveal (heading reveal), SmoothScroll
-  styles/
-    tokens.css            palette, type scale, spacing, motion tokens
-    global.css            layout primitives, all namespaced `lfi-`
-    atmosphere.css        the fixed lighting layer
-    animations.css        reveal system and reduced-motion fallback
-    hud.css, scrub.css    decorative card corners and scroll-scrub effects
-    legacy-bootstrap.css  Bootstrap, for the legacy pages only
-  utils/meta.js           sets per-route title/description/canonical/robots
-```
+### Office addresses and phone numbers
 
-Every class the redesign adds is prefixed `lfi-` (site-wide) or `pf-`
-(corporate-profile sections), so nothing collides with Bootstrap or the legacy
-pages' own styling.
-
-### Components that are not currently rendered
-
-`src/components/sections/` still holds the previous homepage's sections —
-`Hero`, `Introduction`, `Solutions`, `Services`, `Process`, `Insights`,
-`Enterprise`, `WhyLinkfields` and `IndustriesSection` — together with the UI
-pieces only they use (`NetworkSphere`, `CapabilityVisual`, `Scrub`,
-`useScrollScrub`). Nothing imports them. They are kept for reference and can be
-deleted when no longer wanted; only `Products` and `Contact` from that folder
-are live.
-
----
-
-## Routes
-
-| Route | What it is | Indexed |
+| Office | Address | Phone |
 | --- | --- | --- |
-| `/` | Homepage | yes |
-| `/demos` | Filterable catalogue of every demonstration | yes |
-| `/BankingAnalytics`, `/TelecomAnalytics`, `/BankingTelecomAnalytics` | Original analytics pages (two buttons each, opening churn and segmentation demos) | yes |
-| `/explore` | The original interactive catalogue explorer | no |
-| `/golf-analyzer`, `/resume-summarizer`, `/jd-cv-comparison` | Original demos — **corporate network only** | no |
-| `/users`, `/generate-report` | Original internal tooling — **corporate network only** | no |
-| anything else | 404 page, served with a real HTTP 404 | no |
+| South Africa (Headquarters) | Block H, Midridge Office Estate, International Business Gateway, Cnr 6th Street, Midrand, 1684 | +27 11 022 6666 |
+| India (Hyderabad) | 809, 8th Floor, Gowra Fountain Head, Raheja Mindspace IT Park, Hitech City, Hyderabad, 500081 | +91 40 4547 4849 |
+| United States (New York) | 1604, 447 Broadway, 2nd Floor, New York, 10013 | +1 347 871 0999 |
+| United Arab Emirates (Dubai) | 409, Churchill Towers, Business Bay, Dubai, 1686 | +971 50 688 5758 |
+| Australia (Melbourne) | Level 40, 140 William Street, Melbourne, 3000, VIC | +61 45 124 6666 |
+| Botswana (Gaborone) | AGA House, Plot 28576, Gaborone Industrial, Gaborone | +267 311 9073 |
 
-Every route's title, description and indexability lives in
-**`src/data/seo.js`**. Adding a route means adding it there as well as in
-`App.js` — the server only serves routes that have a generated HTML file, so a
-route missing from `seo.js` will 404 in production.
+### What happens after you contact Linkfields
+1. The Linkfields sales team gets in touch within 24 hours.
+2. If required, Linkfields signs an NDA with you, to assure the highest level of privacy.
+3. Once Linkfields has analysed your business requirements, the sales team gives you the next steps.
 
-The demo catalogue cards no longer point at the three analytics pages: each
-churn and segmentation demo has its own card that opens the live demo
-directly. The pages remain reachable for links already published to them.
+### The contact form ("Let's explore innovation together")
+Fields: name, work email, company, phone (optional), area of interest, and message.
 
-### Routes that need the corporate network
+Area of interest options: Digital Transformation · Intelligent Enterprise Platforms · Data & AI · Talent Advisory & GCC · Cyber Security · Linkfields software (licence / SaaS) · Something else.
 
-These call services on `10.2.0.x`, so they cannot load for a visitor outside
-the Linkfields network. They are kept working and labelled as internal in the
-catalogue rather than presented as links anyone can open:
-
-| Route | Backend |
-| --- | --- |
-| `/golf-analyzer` | `http://10.2.0.70:5001/analyze/` |
-| `/resume-summarizer` | `http://10.2.0.70:5002/summarize-pdf` |
-| `/jd-cv-comparison` | `http://10.2.0.70:5002/match-jd-cv/` |
-| `/users` | `http://10.2.0.65:8020/users` |
-| `/generate-report` | an ngrok tunnel (see [Known limitations](#known-limitations)) |
-
-These URLs are hard-coded in the components. Moving them to `REACT_APP_*`
-variables would be the natural next cleanup.
+If the form cannot send directly, it opens your email client with the message addressed to sales@linkfields.com.
 
 ---
 
-## The homepage
+## 5. Linkfields services: the five portfolios ("Five verticals. One integrated partner.")
 
-`src/Pages/Home.js` renders these sections in order. Each lives in
-`src/components/profile/` unless noted, and each declares a key light for the
-[lighting layer](#the-lighting-layer).
+### 5.1 Digital Transformation (Modernise · Automate · Transform)
+Modernise applications, automate operations and connect every channel your customers use.
 
-| Section | Component | Anchor | Content source |
+**Services Linkfields delivers**
+- **App modernisation:** Cloud, DevOps & microservices
+- **Automation & RPA:** UiPath, Blue Prism & AI workflows
+- **Integration services:** APIs, Boomi & enterprise integration
+- **WhatsApp Business:** Conversational service & commerce
+- **Omnichannel:** Connected journeys, every channel
+- **Quality engineering:** Test automation & AI code assurance
+
+**Linkfields software (IP):** **testoriumz**, a quality engineering platform for continuous testing: test management, low-code automation, root-cause analysis, dashboards and CI/CD integration. It replaces a fragmented tool estate with one platform.
+
+**Accelerators:** AI Workflow Automation · AI orchestration · Testing CoE (Centre of Excellence)
+
+### 5.2 Intelligent Enterprise Platforms (Operate · Integrate · Engage)
+Run the core of the enterprise on connected ERP and CRM platforms, made smarter with AI.
+
+**Services Linkfields delivers**
+- **ERP & SAP S/4HANA:** Implementation, upgrades & migration
+- **Microsoft Dynamics 365:** Microsoft finance, operations & CE
+- **CRM & Customer 360:** Salesforce & Zoho journeys
+- **Odoo & Zoho ERP:** Agile platforms for growing firms
+- **Customer portals:** Self-service & partner portals
+- **Platform AMS:** Managed support & optimisation
+
+**Linkfields software (IP):** **Linkworks**, a composable enterprise application platform for complex business apps where packaged ERP or CRM does not fit.
+
+**Platforms Linkfields delivers:** SAP · Oracle · Salesforce · Zoho · Odoo · Microsoft
+
+**Accelerators:** SAP migration accelerators · Regression packs · Intelligent ops
+
+### 5.3 Data & AI (Understand · Predict · Govern)
+From AI strategy to agentic AI in production: turn data into decisions, governed from day one.
+
+**Services Linkfields delivers**
+- **AI strategy:** Roadmaps, use cases & value
+- **Agentic AI:** Autonomous agents that act
+- **AI governance:** Guardrails, cost & observability
+- **GenAI & RAG:** Knowledge assistants on your data
+- **Data & analytics:** Platforms, pipelines & Power BI
+- **Machine learning:** Prediction, scoring & forecasting
+
+**Linkfields software (IP)**
+- **textIQ:** Intelligent search and insight across unstructured enterprise content.
+- **FinSight:** Conversational analysis and reporting over financial data.
+- **EduPilot:** Rapid course creation for education and corporate learning.
+- **InteliConvo:** AI contact centre for voice, chat and agent assist.
+
+**Accelerators:** Predictive Analytics Suite · Digital Twin Suite
+
+### 5.4 Talent Advisory & GCC (Advise · Staff · Scale)
+Strategy, specialist talent and Global Capability Centres (GCC) that scale with you.
+
+**Services Linkfields delivers**
+- **Technology advisory:** Roadmaps, architecture & assessments
+- **Specialist talent:** On-demand experts across verticals
+- **Managed teams:** Outcome-based delivery pods
+- **GCC strategy & setup:** Operating model & set-up advisory
+- **GCC build & operate:** Build-operate-transfer centres
+- **GCC scale & govern:** Talent, tooling & embedded IP
+
+**Talent engagement models**
+- **Staff augmentation:** Specialists embedded in your teams, ready to start fast.
+- **Managed teams:** Outcome-based delivery pods Linkfields runs end to end.
+- **GCC build-operate-transfer:** Linkfields builds and runs your GCC, then hands it over.
+
+**Scale:** 5+ data & development centres · 550+ people · 150+ consultants
+
+### 5.5 Cyber Security (Protect · Validate · Govern)
+End-to-end security, from code to AI: Linkfields' own products plus specialist services.
+
+**Services Linkfields delivers**
+- **Offensive testing:** AI, LLM & web app testing (penetration testing)
+- **Security operations:** Splunk SIEM, Qualys monitoring
+- **Incident response:** Rapid7: detect, triage, contain
+- **Architecture review:** Network, firewall & IAM
+- **Cloud security & GRC:** Controls, IAM & regulation
+- **Security awareness:** Staff education & phishing drills
+
+**Linkfields software (IP)**
+- **VajraX:** AI-powered exposure validation of your external attack surface.
+- **Vector X:** Code scanning and supply-chain analysis, repo to release.
+- **AI Governance:** One gateway for every AI tool: guardrails, cost & tracing (Portkey + Opik).
+
+**Accelerators:** Regulatory readiness accelerator · Continuous compliance evidence
+
+---
+
+## 6. Linkfields software and products
+
+### All Linkfields-owned software
+testoriumz, Linkworks, textIQ, FinSight, EduPilot, InteliConvo, VajraX, Vector X and AI Governance.
+
+**Licensing:** Linkworks, testoriumz, VajraX and the Linkfields AI SaaS solutions are available by licence, subscription or SaaS, with or without a Linkfields services engagement. Prices are not published; contact sales@linkfields.com for a quote.
+
+### Product portfolio on the website ("Linkfields software you can open and use")
+Working builds with public demonstrations: a faster way to judge the work than any case study. Where there is no public build, the card points you to the Linkfields team.
+
+| Product | Category | What it does | Live demo |
 | --- | --- | --- | --- |
-| Hero (title, portfolio chips, facts, glyph globe) | `ProfileHero` | `#top` | `profile.js` → `hero` |
-| Who we are (positioning, mission, vision) | `WhoWeAre` | `#who-we-are` | `profile.js` → `about` |
-| Culture | `Culture` | `#culture` | `profile.js` → `culture` |
-| Scale (the figures) | `Scale` | `#scale` | `profile.js` → `stats` |
-| Global reach (map of offices) | `GlobalReach` | `#global` | `profile.js` → `locations`, `reach` |
-| Five portfolios (carousel) | `Portfolios` | `#portfolios` | `profile.js` → `portfolios` |
-| Products | `sections/Products` | `#products` | `demos.js` → `products` |
-| Industries | `IndustriesGrid` | `#industries` | `profile.js` → `industries` |
-| Clients | `Clients` | `#clients` | `profile.js` → `clients` |
-| Partners and recognition | `Partners` | `#partners` | `profile.js` → `partners`, `recognitionMedia` |
-| Commercial models | `Engage` | `#engage` | `profile.js` → `engagement` |
-| Why Linkfields | `WhyChoose` | `#why-linkfields` | `profile.js` → `reasons` |
-| FAQ | `Faq` | `#faq` | `faq.js` |
-| Contact (form + offices) | `sections/Contact` | `#contact` | `company.js`, `profile.js` → `contactBlock` |
+| vajraX | AI platform | The platform layer behind enterprise document and data workflows: where a model stops being a prototype and becomes something a department runs on. | https://vajrax.lfidemo.com/ |
+| TextIQ | Document intelligence | Extraction, classification and summarisation over unstructured documents, turning filed paperwork into fields a system can query. | https://textiq.lfidemo.com/ |
+| FinSight | Banking analytics | Financial insight and reporting analytics over banking data, built for the people who have to explain the number as well as produce it. | https://finsight.lfidemo.com/ |
+| Engage360 | Customer engagement | Cross-channel customer engagement analytics: what happened across every touchpoint, assembled into one view of the relationship. | https://engage360.lfidemo.com/ |
+| EduPilot | Education AI | An AI assistant for education workflows and learner support, grounded in an institution's own material. | https://edupilot.lfiai.com/ |
+| Digital Growth Intelligence | Growth analytics | Search and digital growth (SEO) analytics for marketing teams. | https://seo.lfidemo.com/ |
+| SiteSense | Portfolio build | A named build in the Linkfields portfolio, served from the corporate network. No public demonstration and no published capability list. | None: contact the Linkfields team |
 
-### Navigation
+InteliConvo, testoriumz, Linkworks, Vector X and AI Governance have no public demo on the website; contact sales@linkfields.com to see them.
 
-`src/data/nav.js` holds the header links: Who we are, Portfolios, Industries,
-Products, Demos. **Contact** is the yellow button beside them (with an arrow),
-not a sixth link. On the homepage it scrolls to `#contact`; from any other page
-it goes to `/#contact`. The mobile drawer shows the same five links with the
-Contact button at the bottom.
+---
 
-`ScrollManager` intercepts same-page `#anchor` clicks site-wide and lands each
-section flush under the sticky header; on a route change it resets to the top
-and refreshes ScrollTrigger.
+## 7. Industries Linkfields serves ("Industries we know deeply")
 
-### Fit-to-screen sections
+Consistent enterprise positioning, with outcomes tailored to each industry.
 
-**Products** and **Contact** are designed to fit in one screen under the
-navbar on desktop. `src/components/ui/useFitScreen.js` tries a list of density
-levels, roomiest first, and writes the first one that fits to the section as
-`data-fit="0" | "1" | ...`. The section's CSS styles each level; heights are in
-`vh` so one set of rules serves a 665px laptop and a 1080px monitor. If no
-level fits (or the screen is narrower than 900px), the section gets
-`data-fit="natural"` and simply takes its full height — nothing is ever
-clipped.
+- **Telecom:** Transform Telecom and Customer Experiences with Digital Innovation, Intelligent Automation and Data & AI. Focus: digital services, customer engagement, intelligent connectivity, automation.
+- **Banking, Financial Services & Insurance (BFSI):** Reimagine Financial and Customer Services with Secure Digital Innovation, Intelligent Automation and Data & AI. Focus: security, digital financial services, intelligent automation, customer experience (CX).
+- **Healthcare & Pharma:** Transform Healthcare with Digital Innovation, AI-Driven Insights and Intelligent Automation for Better Patient Care. Focus: patient care, digital health, AI-powered insights.
+- **Retail, FMCG & CPG:** Reimagine Retail and Consumer Experiences with Digital Innovation, AI-Driven Insights and Intelligent Automation. Focus: customer experience, forecasting, personalisation, growth.
+- **Manufacturing:** Accelerate Smart Manufacturing with Digital Innovation, AI-Powered Automation and Predictive Intelligence. Focus: smart factories, operational excellence, predictive intelligence.
+- **Energy & Mining:** Transform Energy and Mining Operations with Digital Innovation, Intelligent Automation and Secure Data & AI Solutions. Focus: asset optimisation, operational efficiency, security, automation.
 
-| Section | Levels | What tightens |
+Linkfields also delivers for **Public Sector**, **Education** and **Hospitality** clients.
+
+---
+
+## 8. Linkfields clients ("Trusted by 80+ leading organisations")
+
+Selected clients shown on the website: FNB, Telkom, Zoom Fibre, CipherWave, MultiChoice Africa, Tiger Brands, Coca-Cola, PepsiCo, DP World, Sanlam, RMA, Assupol, HSBC, Absa, Sol Plaatje University, ENSafrica, BCX, Adapt IT, Deloitte, IBM, LTIMindtree, Grant Thornton, NEOM, Dhofar Insurance, Alfanar.
+
+> "Customer success is the cornerstone of our approach. We build enduring partnerships that drive long-term growth and measurable impact."
+
+The website does not publish case studies or project details for individual clients.
+
+---
+
+## 9. Technology partners, awards and recognition
+
+### Partners ("An ecosystem of leading technology partners")
+Linkfields has teamed up with industry-leading OEMs and premium solution providers, adding significant value to every engagement: 20+ technology partners across cloud, ERP, CRM, automation and integration.
+
+Partners: Microsoft, Microsoft Azure, AWS Partner Network, Salesforce, SAP (SAP Partner), Oracle, UiPath, Blue Prism, Boomi, Odoo, Zoho, HP.
+
+### Awards and recognition
+- **Proudly South African, B-BBEE Level 1** contributor
+- **Great Place To Work** certified
+- **YES (Youth Employment Service)** member
+- **Financial Times / Statista: Africa's Fastest Growing Companies 2023**, ranked 38th in Africa's top 100
+
+---
+
+## 10. How to engage and buy from Linkfields ("Flexible commercial models")
+
+One capability architecture, flexible commercial models. You can buy a project, a managed outcome, a dedicated team, or Linkfields software on its own.
+
+| Commercial model | Description | Best for |
 | --- | --- | --- |
-| Products | `0`–`3` | logo-window height, description lines (3 → 2), tech tags hidden, spacing |
-| Contact | `0`–`1` | spacing and type size |
+| Fixed Price | Defined scope and outcome delivered against agreed milestones and acceptance criteria. | Well-defined projects, migrations, discrete builds |
+| Time & Materials | Flexible delivery where scope evolves, with transparent rates and governance. | Discovery, evolving roadmaps, co-development |
+| Managed Service | Ongoing service with SLAs, governance and continuous improvement built in. | Application management, managed quality, managed security |
+| Dedicated Team | Persistent squads or specialist teams aligned to your priorities and ways of working. | Product engineering, sustained capacity, capability centres (GCC) |
+| Outcome-Based | Commercials linked to measurable business or operational outcomes, where these can be agreed and evidenced. | Assurance, exposure closure, resolution-rate engagements |
 
-Products was checked to fit at 1280×665, 1366×657, 1440×760, 1536×730,
-1920×945 and 1920×1080. When the level changes the section's height changes,
-so the hook refreshes ScrollTrigger — otherwise every scroll animation below it
-would fire hundreds of pixels late.
+**Software on its own:** Linkworks, testoriumz, VajraX and the Linkfields AI SaaS solutions are available by licence, subscription or SaaS, with or without a services engagement.
 
----
-
-## Content and data
-
-**All content lives in `src/data/`.** Components render it; they do not carry
-copy of their own, so a content change is a change to one data file.
-
-| File | Holds |
-| --- | --- |
-| `profile.js` | Corporate Profile 2026 content: portfolios, about, culture, stats, locations, industries, clients, partners, commercial models, reasons, hero |
-| `company.js` | Verified company facts, published statements (verbatim), contact details, offices, parent-site links |
-| `demos.js` | The products and the demo catalogue, with tech and industry taxonomies |
-| `faq.js` | The FAQ — every answer is assembled from the files above, so it cannot drift |
-| `seo.js` | Per-route title, description and indexability (see [SEO](#seo-aeo-and-geo)) |
-| `nav.js` | Header navigation |
-| `landMask.js` | Generated coastline raster for the globe and map — do not edit by hand |
-| `services.js`, `solutions.js`, `enterprise.js` | Content for the earlier sections that are not currently rendered |
-
-### Content accuracy
-
-Everything factual is traceable to an official source; the files in
-`src/data/` cite theirs at the top:
-
-- the **Linkfields Corporate Profile 2026** deck (`profile.js`, in the deck's own wording)
-- <https://www.linkfields.com/> and its About, Our Approach, AI & ML and Contact pages (`company.js`)
-- the existing lfiai.com catalogue — product names, descriptions, demo URLs (`demos.js`)
-
-Strings under `official` in `company.js` are quoted character for character
-from the published pages. There are no invented customers, testimonials, case
-studies, certifications or metrics. A product whose capabilities are not
-published (SiteSense) says so rather than having a description written for it.
-
-### The demo catalogue
-
-`demos.js` exports `products` (the named, branded products shown on the
-homepage) and `demos` (every working demonstration shown on `/demos`). Each
-demo has:
-
-| Field | Meaning |
-| --- | --- |
-| `href` | Live URL, or `null` if there is no public build (the UI then routes to the enquiry form) |
-| `access` | `"public"` (anyone can open it) or `"internal"` (corporate network only — shown, but not linked) |
-| `status` | `"live"` or `"offline"` |
-| `tech`, `industries` | Filter tags; keys of `TECH` and `INDUSTRIES` in the same file |
-
-Counts shown on the site ("Browse all 38 demonstrations", the FAQ, `llms.txt`)
-are computed from these arrays, never typed into copy. Demo links were last
-verified reachable on the date in `VERIFIED_ON`.
+**Sectors served under these models:** Banking & Financial Services, Insurance, Telecom, Public Sector, Retail & FMCG, Mining & Manufacturing, Education, Hospitality.
 
 ---
 
-## Design system
+## 11. Why enterprises choose Linkfields
 
-### Tokens
+- **Services depth:** Five verticals spanning modernisation, enterprise platforms, data & AI, talent & GCC and security.
+- **Proprietary software:** Linkworks, testoriumz, VajraX, Vector X and Linkfields' AI SaaS products: proof beyond consultant capability.
+- **Reusable accelerators:** Delivery IP that shortens time to value and turns prior engineering into repeatable outcomes.
+- **Integrated delivery:** One partner for services, software, managed delivery, dedicated teams and capability centres.
 
-`src/styles/tokens.css` defines the palette, type scale, spacing, radii and
-motion durations as CSS custom properties (`--lfi-*`, and `--pf-*` for the
-portfolio colours). Use the tokens rather than raw values.
-
-### Brand
-
-`public/assets/brand/` holds the official logo, extracted directly from the
-supplied logo sheet — same paths, gradients and proportions. The mark is never
-redrawn in markup or substituted with text.
-
-| File | Use |
-| --- | --- |
-| `lfi-logo-dark.svg` | Full lockup, light text — for dark backgrounds |
-| `lfi-logo-light.svg` | Full lockup, dark text — for light backgrounds |
-| `lfi-mark.svg` | Icon mark only |
-| `lfi-mark-flat.svg` | Flat mark, for sizes below ~48px |
-| `lfi-icon.svg` | App icon (mark on the brand black square) |
-
-Palette, per the logo sheet: `#FFD600` yellow, `#FF7800` orange, `#2D58C0`
-blue, `#000000` black, `#E6ECED` light text. One documented deviation: the
-sheet's grey `#737677` fails WCAG AA at small sizes, so `--lfi-text-subtle` is
-a lighter step of the same hue. The lockup is ~4.8:1 — size it by **height**.
-
-Each portfolio has its own colour (`--pf-orange`, `--pf-blue`, `--pf-purple`,
-`--pf-yellow`, `--pf-teal`), used consistently in the hero chips, carousel and
-footer.
-
-### The lighting layer
-
-`styles/atmosphere.css` + `components/layout/Ambient.js` make a long dark page
-read as one lit space rather than a stack of black blocks. One fixed element
-behind the whole site carries five named key lights; each section declares the
-one it wants with `data-light="deep | violet | azure | amber | ember"`, and the
-layer cross-fades to it as that section takes over the screen.
-
-- **Section backgrounds must stay translucent.** `lfi-section--alt` is a
-  low-alpha tint, not an opaque fill; an opaque background paints over the
-  lighting and flattens the section.
-- **It degrades to nothing.** If the observer never runs, the site is the flat
-  dark it would otherwise be — a complete design, not a broken one.
-
-### Accessibility
-
-- Every interactive target is at least 24×24px (WCAG 2.5.8), including the
-  carousel dots.
-- Heading levels are kept in order; labels hidden on small screens are
-  visually hidden, not `display: none`, so the outline stays intact.
-- Split headings carry the full sentence as an `aria-label`, so screen readers
-  read them as one phrase.
-- Under `prefers-reduced-motion` every animation is skipped and content shows
-  immediately.
-- Lighthouse accessibility: 100 (mobile and desktop) at the last audit.
+In short: Five verticals · Proprietary IP · Reusable accelerators · One integrated partner.
 
 ---
 
-## Motion and animation
+## 12. AI demo catalogue (https://lfiai.com/demos)
 
-### Libraries
+**"Every capability, with something you can actually open."** The Linkfields AI demo catalogue has **38 demonstrations** built by Linkfields Innovations across conversational AI, document intelligence, fraud detection, churn, forecasting and risk. **33 are publicly reachable**; 5 run only on the Linkfields corporate network. Reachability last verified 20 October 2026.
 
-`src/motion/index.js` registers GSAP with ScrollTrigger and SplitText and
-exports the shared easings (`EASE.out`, `EASE.emphasis`) and
-`prefersReducedMotion()`. `SmoothScroll.js` runs Lenis and keeps ScrollTrigger
-in sync with it.
+**How to use the catalogue:** search by name, or filter by industry (Banking, Telecom, Insurance, Retail, Manufacturing, Energy, Education, Public sector, Cross-industry) and by technology (Generative AI, Machine learning, Computer vision, Advanced analytics, NLP). Each card opens the live demo in a new tab.
 
-### Heading reveal (every section heading)
+Not finding something? The catalogue grows from client work: tell the Linkfields team your problem (sales@linkfields.com) and they will say whether they have built something close to it.
 
-`src/motion/LineReveal.js` is the site's signature entrance, used by every
-section heading through `ui/SectionHeading.js`:
+### Conversational AI and document intelligence demos
+| Demo | What it does | Industries | Technology | Link |
+| --- | --- | --- | --- | --- |
+| RAG Chatbot | Retrieval-augmented answers grounded in your own documents, with the source each answer came from. | Cross-industry | Generative AI, NLP | https://rag.lfiai.com/ |
+| RAG Chatbot (mobile) | The same grounded assistant, built for a phone. | Cross-industry | Generative AI, NLP | https://ragmobile.lfiai.com/ |
+| Unmanned Kiosk | A self-service AI kiosk for unattended customer interactions, from greeting through to resolution. | Retail, Public sector, Banking | Generative AI, Computer vision | https://uks.lfiai.com/ |
+| TextIQ | Document extraction, classification and summarisation. | Cross-industry, Insurance | NLP, Generative AI | https://textiq.lfidemo.com/ |
+| vajraX | Enterprise document and data workflow platform. | Cross-industry | Generative AI, NLP | https://vajrax.lfidemo.com/ |
+| EduPilot | AI assistant for education workflows. | Education | Generative AI | https://edupilot.lfiai.com/ |
+| Digital Growth Intelligence | Search and digital growth analytics for marketing teams. | Cross-industry | Advanced analytics, NLP | https://seo.lfidemo.com/ |
 
-- the heading is split into lines and words; each line sits in a clipping mask;
-- the words rise into place **left to right**, fading in and sharpening out of
-  a slight blur — about **2.5 seconds** for a seven-word heading;
-- it plays when the heading enters the viewport and **replays every time** it
-  comes back into view (it resets while off screen, so the reset is never seen).
+### Banking demos
+| Demo | What it does | Technology | Link |
+| --- | --- | --- | --- |
+| FinSight | Financial insight and reporting analytics. | Advanced analytics | https://finsight.lfidemo.com/ |
+| Banking Customer Churn | Which banking customers are about to leave, and what that is worth. | Machine learning | https://bankingchurn.lfidemo.com/ |
+| Banking Customer Segmentation | Which segment each banking customer sits in. | Machine learning | https://bankingsegment.lfidemo.com/ |
+| Credit Risk Analytics | Credit risk scoring and portfolio risk analytics for lenders. | Machine learning | https://creditrisk.lfidemo.com/ |
+| Banking Claims Fraud Detection | Flagging claims that do not behave like the rest of the book. | Machine learning | https://bankingclaimsfraud.lfidemo.com/ |
+| Signature Fraud Detection | Computer vision applied to signature verification (Banking and Insurance). | Computer vision | https://signaturefrauddetect.lfidemo.com/ |
+| Network Fraud Detection | Fraud found in the shape of the network rather than the single transaction (Banking and Telecom). | Machine learning | https://networkfrauddetect.lfidemo.com/ |
+| Sentiment Analysis | What customers are actually saying, at the scale they say it. | NLP | https://bankingsentimentanalysis.lfidemo.com/ |
 
-The motion is defined once, in `WORD_REVEAL` and `wordStagger()`:
-
-| Setting | Value | Where |
+### Telecom and Banking + Telecom demos
+| Demo | What it does | Link |
 | --- | --- | --- |
-| Per-word duration | 1.3s | `WORD_REVEAL.to.duration` |
-| Gap between words | 0.2s, tightened on long headings so none runs past ~3s | `wordStagger()` |
-| Starting offset / blur | 45% of the word's height, `blur(4px)` | `WORD_REVEAL.from` |
+| Telecom Customer Churn | Churn modelling on a telecom subscriber base. | https://telecomchurn.lfidemo.com/ |
+| Telecom Customer Segmentation | Segmentation modelling on a telecom subscriber base. | https://telecomsegment.lfidemo.com/ |
+| Banking + Telecom Customer Churn | Churn modelling on one customer view across two industries' data. | https://banktelecomchurn.lfidemo.com/ |
+| Banking + Telecom Smart Segmentation | Segmentation on one customer view across two industries' data. | https://bankingtelecosmartsegment.lfidemo.com/ |
+| Next Best Offer (NBO) revenue analytics | Which offer to make next, ranked by expected revenue. | https://bankingtelcorevenuenbo.lfidemo.com/ |
+| NBO Data Recommendation Engine | Data-bundle recommendations for telecom subscribers. | https://telecomnbodataaddon.lfidemo.com/ |
+| Customer Lifetime Value (Banking + Telecom) | What a relationship is worth over its life, not this quarter. | https://clvbankingtelecom.lfidemo.com/ |
+| Smart KPI Monitoring | KPI monitoring that notices the move before the monthly pack does. | https://kpi.lfidemo.com/ |
 
-`LineReveal` props: `split` (`"words"` default, or `"lines"` for the older,
-quicker line-by-line reveal), `replay` (`true` default), `delay`, `start`.
-
-The **homepage hero title** uses the same `WORD_REVEAL` settings inside its
-own intro timeline (`ProfileHero.js`) and plays once on load; the chips, lede
-and buttons keep their own timing rather than waiting for the title.
-
-Three implementation details worth knowing before changing this code:
-
-- **Set, then tween — not `gsap.from`.** The animation is a timeline that sets
-  the hidden state at time 0 (`immediateRender: true`) and then tweens to rest.
-  A staggered `from()` only re-applies its start values to the first target
-  when ScrollTrigger refreshes, which left the other words visible and then
-  jumping.
-- **Gradient text.** `.lfi-accent` paints its gradient through its own text.
-  Once split into separately animated words, the phrase paints nothing, so
-  `paintAccentWords()` gives each word its own slice of the phrase's gradient.
-- **It can never hide content.** The resting hidden state is gated on `.lfi-js`
-  and cleared in a `finally`, so an animation error leaves headings visible.
-
-### Other motion
-
-| Effect | Where |
-| --- | --- |
-| Fade-and-rise on scroll for cards and paragraphs | `ui/Reveal.js` + `ui/useReveal.js`, CSS in `styles/animations.css` (`data-reveal`, `delay` for staggers) |
-| Hero intro timeline, and the hero copy drifting on scroll | `profile/ProfileHero.js` |
-| Count-up figures | `ui/CountUp.js` |
-| Interactive glyph globe (drag to spin) | `ui/GlyphGlobe.js` |
-
-The hero lede deliberately slides without fading: it is the Largest Contentful
-Paint element, and Chrome does not count an element as painted while its
-opacity is 0.
-
----
-
-## SEO, AEO and GEO
-
-The site is client-rendered, and most AI crawlers (GPTBot, ClaudeBot,
-PerplexityBot) and Bing's first pass do **not** run JavaScript — they read only
-the HTML the server sends. So everything a crawler needs is written into
-static files at build time.
-
-### What is in place
-
-| Area | Implementation |
-| --- | --- |
-| Per-route metadata | `src/data/seo.js` → `utils/meta.js` at runtime **and** static HTML per route at build |
-| Canonical host | `.htaccess` 301-redirects `http://` and `www.` to `https://lfiai.com` |
-| Real 404s | Unknown URLs and missing files return HTTP 404 (not the homepage with 200) |
-| Structured data | Organization (legal name, HQ address, offices, contact points, knowsAbout), WebSite, ItemList of products, FAQPage, BreadcrumbList, WebPage/CollectionPage |
-| FAQ | Visible on the homepage (native `<details>`, so answers are always in the DOM) and as FAQPage data |
-| No-JS text | Each route's HTML carries a text fallback inside `<noscript>` (~1,080 words on `/`, ~690 on `/demos`) |
-| `llms.txt` | Plain-text company brief for language models, generated from the data files |
-| `robots.txt` | All crawlers allowed; AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot ...) listed explicitly |
-| `sitemap.xml` | Indexable routes only, stamped with the build date |
-| Social preview | 1200×630 `og-image.jpg` |
-
-### The build-time pass — `scripts/seo-build.mjs`
-
-Runs automatically after `react-scripts build`. From `src/data/` it writes:
-
-| Output | Contents |
-| --- | --- |
-| `build/<route>.html` | One per route in `seo.js`: that route's title, description, canonical, robots and social tags, its structured data and its no-JS text |
-| `build/404.html` | The not-found page (`noindex`) |
-| `build/index.html` | Adds FAQPage + WebPage data and the FAQ to the no-JS text |
-| `build/sitemap.xml` | Indexable routes with today's date |
-| `build/llms.txt` | Company summary, portfolios, industries, products, FAQ, contacts |
-
-It needs no dependencies. It fails the build loudly if a tag it expects is
-missing from `index.html`, rather than shipping a page with the wrong head.
-
-### Server rules — `public/.htaccess`
-
-Copied into `build/` and deployed with it:
-
-1. `www.` and `http://` → 301 to `https://lfiai.com` (respects
-   `X-Forwarded-Proto` behind a proxy).
-2. Real files are served as they are.
-3. `/demos` → `demos.html` (and so on); a trailing slash redirects to the
-   canonical form first.
-4. Anything else → `ErrorDocument 404 /404.html`, which the app renders as its
-   404 page.
-5. Caching: hashed `/static/` files for a year (`immutable`), images for a
-   week, HTML/TXT/XML always revalidated.
-
-Only `FileInfo`-class directives are used, so a host with restricted
-`AllowOverride` will not turn the site into 500 errors. **This file replaces
-whatever `.htaccess` was on the server before** — if the host had rules of its
-own, merge them in.
-
-### Scores at the last audit
-
-Lighthouse (local production build):
-
-| | Mobile | Desktop |
+### Insurance demos
+| Demo | What it does | Link |
 | --- | --- | --- |
-| SEO | 100 | 100 |
-| Accessibility | 100 | 100 |
-| Best practices | 100 | 100 |
-| Performance | ~75 | 97–98 |
+| Claims Fraud & Anomaly Detection | Detects fraudulent and anomalous insurance claims. | https://insurancefraud.lfidemo.com/ |
+| Underwriting optimisation & pricing segmentation | Pricing segmentation and underwriting decisions on the same data. | https://underwriting.lfidemo.com/ |
+| Insurance analytics platform | Claims, customer lifetime value and underwriting in one place. | https://insuranceplatform.lfidemo.com/ |
+| Insurance Customer Lifetime Value | Lifetime value modelling across a policy book. | https://clvinsurance.lfidemo.com/ |
+| Lapse Prediction & Retention Analytics | Which policies are about to lapse, and which are worth saving. | https://insurancelapseprediction.lfidemo.com/ |
+| Risk Score Prediction | Risk scoring across an insurance portfolio. | https://insuranceriskscore.lfidemo.com/ |
 
-Mobile performance is held back by client-side rendering: the page cannot paint
-until the JavaScript has run. Pre-rendering the routes at build time is the
-next step if a higher mobile score is needed.
+### Operations, forecasting and customer experience demos
+| Demo | What it does | Industries | Link |
+| --- | --- | --- | --- |
+| Demand Forecasting & Inventory Optimisation | Time-series demand forecasting feeding inventory decisions. | Retail, Manufacturing | https://forecasting.lfidemo.com/ |
+| Equipment Failure & Predictive Maintenance | Predicting equipment failure before it takes the line down. | Energy, Manufacturing | https://equipment.lfidemo.com/ |
+| 360 Customer Behaviour Analytics | Behavioural analytics assembled across every channel a customer uses. | Cross-industry, Retail | https://customeranalytics.lfidemo.com/ |
+| Engage360 | Cross-channel customer engagement. | Cross-industry, Retail | https://engage360.lfidemo.com/ |
 
-### After each deploy
-
-- `curl -I http://www.lfiai.com/` → `301` to `https://lfiai.com/`
-- `curl -I https://lfiai.com/does-not-exist` → `404`
-- `curl -s https://lfiai.com/demos | grep "<title>"` → the demos title, not the homepage's
-- Submit `https://lfiai.com/sitemap.xml` in Google Search Console and Bing
-  Webmaster Tools (Bing's index also feeds ChatGPT search and Copilot).
-
----
-
-## Configuration and the contact form
-
-All environment variables are optional. Put them in `.env.local` (git-ignored)
-or set them in the build environment. CRA only exposes variables prefixed
-`REACT_APP_`, and they are inlined at **build** time — rebuild after changing
-one.
-
-| Variable | Default | Effect |
-| --- | --- | --- |
-| `REACT_APP_CONTACT_ENDPOINT` | _unset_ | URL that accepts a JSON `POST` from the contact form |
-
-```bash
-cp .env.example .env.local
-```
-
-There is **no form backend in this repository**, and the UI does not pretend
-there is one:
-
-- **Unset (default).** The form validates, then hands the message to the
-  visitor's email client via `mailto:` addressed to `sales@linkfields.com`. A
-  visible notice says so, and no success message is shown for something that
-  was not sent.
-- **Set.** The form `POST`s JSON to that URL and reports the real outcome. A
-  non-2xx response is shown as a failure, with the email route offered.
-
-Payload:
-
-```json
-{
-  "name": "...", "email": "...", "company": "...", "phone": "...",
-  "interest": "...", "message": "...", "source": "lfiai.com"
-}
-```
-
-No secrets are read by the frontend, and none should be — anything in a
-`REACT_APP_` variable ships in the JavaScript bundle and is public.
-
-### What the endpoint has to do
-
-The browser half of this form is a convenience, not a control. The server
-behind `REACT_APP_CONTACT_ENDPOINT` must:
-
-- re-validate every field on its own rules;
-- sanitise values before they reach a mail body, template or database;
-- rate-limit per IP and per sender address;
-- hold the mail credentials (never in a `REACT_APP_` variable);
-- return 2xx **only** once the message is genuinely accepted.
-
-The client adds two cheap filters — a honeypot field and a three-second
-minimum fill time — which are not a substitute for the list above.
-
-**This integration is not configured.** Treat the deployment as incomplete
-until an endpoint exists and has been tested end to end.
-
----
-
-## Verifying the UI
-
-```bash
-npm start            # terminal 1
-npm run verify       # terminal 2
-```
-
-`npm run verify` drives headless Chromium (Playwright, a devDependency) over the
-running site and exits non-zero on any failure:
-
-| Check | Why |
+### Internal demos (Linkfields corporate network only, not publicly reachable)
+| Demo | What it does |
 | --- | --- |
-| Horizontal overflow at 1440 / 1280 / 1024 / 768 / 390 / 360 | Names the offending element instead of just reporting a wide page |
-| Console errors, uncaught exceptions, failed requests | On `/` and `/demos` |
-| Hero headline line breaks | The accent phrase must occupy exactly one line box at every width |
-| Ambient lighting | The lighting layer must mount and change between sections |
-| `prefers-reduced-motion` | Nothing may be left stuck at `opacity: 0` |
-| Tablist keyboard operation | Arrow keys move selection; exactly one tab is in the tab order |
+| Resume Summarisation | Summarises a CV into the facts a hiring manager screens on. |
+| JD & CV Comparison | Scores a CV against a job description and shows where the gaps are. |
+| Golf Pose Analyzer | Computer-vision movement analysis from video of a golf swing. |
+| Cybersecurity LMS | A learning-management build for cybersecurity training. |
+| SiteSense | A named portfolio build. Capabilities are not published. |
 
-Screenshots per breakpoint go to `.verify/` (git-ignored). Options:
+To see an internal demo, contact sales@linkfields.com.
 
-```bash
-npm run verify -- --url=http://localhost:3001 --out=.tmp/shots
-```
-
-For SEO checks, run Lighthouse against a served production build (`npx serve
-build`, then Chrome DevTools → Lighthouse) — the dev server is unminified and
-scores lower.
-
----
-
-## Build and deployment
-
-`azure-pipelines.yml` runs on every push to `main`:
-
-1. installs Node 20 (and dependencies only if `package.json` or the lockfile
-   changed);
-2. runs `CI=false npm run build` — which includes the SEO pass;
-3. mirrors `build/` to the site root over FTP with `lftp` (dotfiles included,
-   so `.htaccess` is deployed).
-
-FTP credentials come from the `Website_Catalogue` variable group in Azure
-DevOps; none are in the repository.
-
-Notes:
-
-- The build also passes with `CI=true` (warnings as errors) — keep it that way.
-- Pushing to `main` deploys. Work on a branch and merge when ready.
+### Demos by industry (quick reference)
+- **Banking:** FinSight, Banking Customer Churn, Banking Customer Segmentation, Credit Risk Analytics, Banking Claims Fraud Detection, Signature Fraud Detection, Network Fraud Detection, Sentiment Analysis, Unmanned Kiosk, plus the Banking + Telecom demos.
+- **Telecom:** Telecom Customer Churn, Telecom Customer Segmentation, NBO Data Recommendation Engine, Smart KPI Monitoring, Network Fraud Detection, plus the Banking + Telecom demos.
+- **Insurance:** Claims Fraud & Anomaly Detection, Underwriting optimisation, Insurance analytics platform, Insurance Customer Lifetime Value, Lapse Prediction, Risk Score Prediction, Signature Fraud Detection, TextIQ.
+- **Retail:** Demand Forecasting & Inventory Optimisation, 360 Customer Behaviour Analytics, Engage360, Unmanned Kiosk.
+- **Manufacturing:** Demand Forecasting & Inventory Optimisation, Equipment Failure & Predictive Maintenance.
+- **Energy:** Equipment Failure & Predictive Maintenance.
+- **Education:** EduPilot.
+- **Public sector:** Unmanned Kiosk.
+- **Fraud detection demos:** Banking Claims Fraud Detection, Signature Fraud Detection, Network Fraud Detection, Claims Fraud & Anomaly Detection.
+- **Churn demos:** Banking Customer Churn, Telecom Customer Churn, Banking + Telecom Customer Churn.
 
 ---
 
-## Common tasks
+## 13. Guide to the lfiai.com website
 
-**Change any text, figure or image on the homepage** — edit the relevant file
-in `src/data/` (usually `profile.js`). Do not put copy in components.
+### Pages
+| Page | Address | What it contains |
+| --- | --- | --- |
+| Homepage | https://lfiai.com/ | The Linkfields corporate profile: who we are, culture, numbers, global reach, portfolios, products, industries, clients, partners, commercial models, why Linkfields, FAQ and contact form. |
+| Demo catalogue | https://lfiai.com/demos | All 38 demonstrations with search and filters. |
+| Classic demo explorer | https://lfiai.com/explore | The original catalogue view, browsable by industry, technology and region. |
+| Banking Analytics | https://lfiai.com/BankingAnalytics | Links to the banking churn and segmentation demos. |
+| Telecom Analytics | https://lfiai.com/TelecomAnalytics | Links to the telecom churn and segmentation demos. |
+| Banking + Telecom Analytics | https://lfiai.com/BankingTelecomAnalytics | Links to the combined banking and telecom churn and segmentation demos. |
 
-**Add or update a demo** — add an entry to `demos` (or `products`) in
-`src/data/demos.js` with a verified `href`, and update `VERIFIED_ON`. Counts
-and the FAQ update themselves.
+### Homepage sections, in order
+Hero ("Integrating your business for a better future") → Who we are → Our culture → Scale that delivers (numbers) → Global reach → Portfolios → Products → Industries → Clients → Partners & recognition → How we engage → Why Linkfields → FAQ → Contact.
 
-**Add a FAQ** — add a `{ q, a }` entry to `src/data/faq.js`. Build answers from
-the data files where possible, and make each answer a complete statement that
-reads correctly on its own (that is what answer engines quote).
+The top menu links to: Who we are, Portfolios, Industries, Products and Demos, plus a Contact button.
 
-**Add a route** — add it to `App.js` **and** to `ROUTES` in `src/data/seo.js`
-(title, description, and `noindex: true` if it should not be in search), then
-call `setMeta(ROUTES.yourRoute)` in the page.
-
-**Add a homepage section** — create a component in `src/components/profile/`,
-give the `<section>` an `id`, `lfi-section` class and a `data-light` value, use
-`<SectionHeading>` for its heading (which gives it the word reveal), and add it
-to `Home.js`.
-
-**Change heading animation speed** — `WORD_REVEAL` and `wordStagger()` in
-`src/motion/LineReveal.js`. This changes every heading, including the hero.
-
-**Regenerate the globe/map coastline** — `node scripts/generate-globe-mask.mjs`.
+### Footer links
+- Explore: Home, Who we are, Global reach, Industries, Clients & partners, How we engage, Demo catalogue, Contact
+- Linkfields corporate site: About us, Our approach, AI & ML services, Careers, News & articles, Contact us
+- Legal: Privacy policy, Terms of use, Cookies policy
+- Emails: sales@linkfields.com, info@linkfields.com, careers@linkfields.com
 
 ---
 
-## Known limitations
+## 14. Frequently asked questions
 
-- **No contact backend** — see [Configuration](#configuration-and-the-contact-form).
-- **`/generate-report`** calls a free ngrok tunnel
-  (`ungenuine-neville-oasitic.ngrok-free.dev`) whose hostname changes whenever
-  the tunnel restarts; it needs a stable URL.
-- **Demo reachability is a point-in-time check**, not a health check. If a demo
-  goes down the catalogue still links to it; re-verify and update
-  `VERIFIED_ON` periodically.
-- **Mobile performance (~75)** is limited by client-side rendering; see
-  [Scores](#scores-at-the-last-audit).
-- **Unused components** in `src/components/sections/` add maintenance surface;
-  see [Components that are not currently rendered](#components-that-are-not-currently-rendered).
-- `caniuse-lite` is old and warns on every build; `npx
-  update-browserslist-db@latest` clears it (it touches the lockfile).
+**What does Linkfields do?**
+Linkfields Innovations is a technology partner across five portfolios: Digital Transformation, Intelligent Enterprise Platforms, Data & AI, Talent Advisory & GCC and Cyber Security. It modernises, runs, analyses, secures and scales the enterprise, combining specialist services with its own software and reusable delivery IP. It is headquartered in South Africa and delivers globally.
+
+**What is Linkfields AI / lfiai.com?**
+Linkfields AI is the AI brand of Linkfields Innovations. The lfiai.com website presents the Linkfields corporate profile and a catalogue of 38 working AI and analytics demonstrations.
+
+**Where is Linkfields based? Where is the head office?**
+Linkfields is headquartered in Midrand, Johannesburg, South Africa (Block H, Midridge Office Estate, International Business Gateway, Cnr 6th Street, Midrand, 1684; phone +27 11 022 6666). It has offices in India (Hyderabad), the United States (New York), the United Arab Emirates (Dubai), Australia (Melbourne) and Botswana (Gaborone). Its offshore delivery centre is in Hyderabad, India, and a United Kingdom (London) presence is launching.
+
+**Which countries does Linkfields operate in?**
+South Africa (HQ), India, USA, UAE, Australia and Botswana, with the UK launching.
+
+**When was Linkfields founded? How old is the company?**
+Linkfields Innovations was established in 2008 in South Africa and has an 18+ year track record.
+
+**How big is Linkfields? How many employees?**
+Linkfields has 550+ employees, 80+ clients, 100+ completed projects, 150+ digital transformation consultants, 100+ ERP consultants and 100+ CRM consultants, and is a B-BBEE Level 1 contributor.
+
+**What AI and data services does Linkfields offer?**
+The Data & AI portfolio covers AI strategy, Agentic AI, AI governance, GenAI & RAG (knowledge assistants on your data), Data & analytics (including Power BI) and Machine learning (prediction, scoring and forecasting). Linkfields' own AI products include textIQ, FinSight, EduPilot and InteliConvo.
+
+**Can Linkfields build a chatbot or AI assistant for my company?**
+Yes. Linkfields builds GenAI & RAG knowledge assistants on your own data, agentic AI, and AI contact centres (InteliConvo for voice, chat and agent assist). Try the RAG Chatbot demo at https://rag.lfiai.com/.
+
+**Does Linkfields provide cyber security services?**
+Yes: offensive testing (AI, LLM and web app testing), security operations (Splunk SIEM, Qualys monitoring), incident response (Rapid7), architecture review (network, firewall and IAM), cloud security & GRC, and security awareness training with phishing drills. Linkfields' own security products are VajraX, Vector X and AI Governance.
+
+**Does Linkfields do SAP, ERP or CRM work?**
+Yes. The Intelligent Enterprise Platforms portfolio covers SAP S/4HANA implementation, upgrades and migration (10+ S/4HANA journeys), Microsoft Dynamics 365, Salesforce and Zoho CRM, Odoo and Zoho ERP, customer portals and platform managed support (AMS). Linkfields delivers on SAP, Oracle, Salesforce, Zoho, Odoo and Microsoft.
+
+**Does Linkfields do RPA and automation?**
+Yes. The Digital Transformation portfolio includes Automation & RPA with UiPath, Blue Prism and AI workflows, plus integration with APIs and Boomi.
+
+**Does Linkfields offer software testing / QA?**
+Yes. Quality engineering (test automation and AI code assurance) is part of Digital Transformation, and Linkfields owns testoriumz, a continuous-testing platform. There is also a Testing CoE accelerator.
+
+**Does Linkfields offer WhatsApp Business solutions?**
+Yes: conversational service and commerce on WhatsApp Business, as part of the Digital Transformation portfolio, along with omnichannel customer journeys.
+
+**What is a GCC and does Linkfields set them up?**
+A GCC is a Global Capability Centre. Linkfields offers GCC strategy & setup, GCC build & operate (build-operate-transfer: Linkfields builds and runs your GCC, then hands it over), and GCC scale & govern.
+
+**Can I hire specialists or a dedicated team from Linkfields?**
+Yes. Options are staff augmentation (specialists embedded in your teams), managed teams (outcome-based delivery pods run by Linkfields) and the Dedicated Team commercial model.
+
+**Which industries does Linkfields work in?**
+Telecom; Banking, Financial Services & Insurance; Healthcare & Pharma; Retail, FMCG & CPG; Manufacturing; Energy & Mining. Linkfields also delivers for public sector, education and hospitality clients.
+
+**Who are Linkfields' clients?**
+80+ organisations, including FNB, Telkom, MultiChoice Africa, Tiger Brands, Coca-Cola, PepsiCo, DP World, Sanlam, HSBC, Absa, Deloitte, IBM, NEOM and others (full list in section 8).
+
+**What software products does Linkfields own?**
+testoriumz, Linkworks, textIQ, FinSight, EduPilot, InteliConvo, VajraX, Vector X and AI Governance. Linkworks, testoriumz, VajraX and the Linkfields AI SaaS products are available by licence, subscription or SaaS, with or without a Linkfields services engagement.
+
+**What is textIQ / TextIQ?**
+textIQ is Linkfields' document intelligence product: intelligent search and insight across unstructured enterprise content, with extraction, classification and summarisation that turn filed paperwork into fields a system can query. Demo: https://textiq.lfidemo.com/
+
+**What is vajraX / VajraX?**
+VajraX provides AI-powered exposure validation of your external attack surface (Cyber Security portfolio). On the product portfolio it is described as the platform layer behind enterprise document and data workflows, where a model stops being a prototype and becomes something a department runs on. Demo: https://vajrax.lfidemo.com/
+
+**What is FinSight?**
+FinSight provides conversational analysis, financial insight and reporting analytics over banking and financial data. Demo: https://finsight.lfidemo.com/
+
+**What is EduPilot?**
+EduPilot is Linkfields' education AI: rapid course creation for education and corporate learning, and an AI assistant for education workflows and learner support grounded in an institution's own material. Demo: https://edupilot.lfiai.com/
+
+**What is Engage360?**
+Engage360 is cross-channel customer engagement analytics: what happened across every touchpoint, assembled into one view of the relationship. Demo: https://engage360.lfidemo.com/
+
+**What is InteliConvo?**
+InteliConvo is Linkfields' AI contact centre for voice, chat and agent assist. There is no public demo; contact sales@linkfields.com.
+
+**What is Linkworks?**
+Linkworks is a composable enterprise application platform for complex business apps where packaged ERP or CRM does not fit.
+
+**What is testoriumz?**
+testoriumz is a quality engineering platform for continuous testing: test management, low-code automation, root-cause analysis, dashboards and CI/CD integration, replacing a fragmented tool estate with one platform.
+
+**What is Vector X?**
+Vector X provides code scanning and supply-chain analysis, from repo to release.
+
+**What is AI Governance?**
+AI Governance is one gateway for every AI tool, providing guardrails, cost control and tracing (built on Portkey and Opik).
+
+**What is Digital Growth Intelligence?**
+Search and digital growth (SEO) analytics for marketing teams. Demo: https://seo.lfidemo.com/
+
+**What does SiteSense do?**
+SiteSense is a named build in the Linkfields portfolio, served from the corporate network. Its capabilities are not published and it has no public demo. Contact sales@linkfields.com for details.
+
+**How much do Linkfields services or products cost?**
+Prices are not published. Linkfields quotes after understanding your requirements, under Fixed Price, Time & Materials, Managed Service, Dedicated Team or Outcome-Based models. Contact sales@linkfields.com.
+
+**How can I engage Linkfields?**
+Five commercial models: Fixed Price, Time & Materials, Managed Service, Dedicated Team and Outcome-Based (see section 10). You can also license Linkfields software on its own.
+
+**Which technology partners does Linkfields work with?**
+A 20+ partner ecosystem including Microsoft, Microsoft Azure, AWS Partner Network, Salesforce, SAP, Oracle, UiPath, Blue Prism, Boomi, Odoo, Zoho and HP.
+
+**What awards has Linkfields won?**
+Great Place To Work certification; Financial Times / Statista Africa's Fastest Growing Companies 2023 (38th in Africa's top 100); B-BBEE Level 1 contributor (Proudly South African); YES (Youth Employment Service) member.
+
+**Can I try Linkfields' AI products before buying?**
+Yes. The demo catalogue at https://lfiai.com/demos lists 38 working demonstrations, 33 of them publicly reachable, across conversational AI, document intelligence, fraud detection, churn, forecasting and risk.
+
+**Do the demos use my real data?**
+The public demos are demonstrations. For a demo on your own data, contact sales@linkfields.com.
+
+**Why choose Linkfields?**
+Services depth across five verticals, proprietary software, reusable accelerators that shorten time to value, and integrated delivery from one partner.
+
+**How do I contact Linkfields?**
+Email sales@linkfields.com for sales enquiries or info@linkfields.com for general questions, or use the contact form at https://lfiai.com/#contact. The sales team gets in touch within 24 hours and will sign an NDA if required. Phone numbers for every office are in section 4.
+
+**Will Linkfields sign an NDA?**
+Yes, if required, Linkfields signs an NDA with you to assure the highest level of privacy.
+
+**How quickly will Linkfields respond?**
+The sales team gets in touch within 24 hours of an enquiry.
+
+**How do I apply for a job at Linkfields? Are you hiring?**
+See https://www.linkfields.com/careers or email careers@linkfields.com.
+
+**Where can I read Linkfields news or blogs?**
+News & articles: https://www.linkfields.com/company/news-and-articles · Blog: https://www.linkfields.com/company/blog
+
+---
+
+## 15. Useful links
+
+- lfiai.com website: https://lfiai.com
+- Demo catalogue: https://lfiai.com/demos
+- Classic demo explorer: https://lfiai.com/explore
+- Contact form: https://lfiai.com/#contact
+- Linkfields corporate site: https://www.linkfields.com
+- About us: https://www.linkfields.com/company/about-us
+- Our approach: https://www.linkfields.com/company/our-approach
+- AI & ML services: https://www.linkfields.com/services/technology/ai-ml
+- Careers: https://www.linkfields.com/careers
+- News & articles: https://www.linkfields.com/company/news-and-articles
+- Blog: https://www.linkfields.com/company/blog
+- Contact us: https://www.linkfields.com/contact-us
+- LinkedIn: https://www.linkedin.com/company/linkfieldsinnovations
+- Privacy policy: https://www.linkfields.com/privacy-policy
+- Terms of use: https://www.linkfields.com/terms-of-use
+- Cookies policy: https://www.linkfields.com/cookies-policy

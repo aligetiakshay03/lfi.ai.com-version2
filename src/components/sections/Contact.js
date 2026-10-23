@@ -34,7 +34,7 @@ import "./Contact.css";
  *
  * To wire a real destination, set REACT_APP_CONTACT_ENDPOINT in .env.local (or
  * the build environment) to a URL that accepts a JSON POST. See .env.example
- * and the README.
+ * and docs/DEVELOPMENT.md.
  */
 
 const ENDPOINT = process.env.REACT_APP_CONTACT_ENDPOINT || "";
@@ -52,7 +52,7 @@ const ENDPOINT = process.env.REACT_APP_CONTACT_ENDPOINT || "";
      - a minimum fill time, because a bot posts the instant the DOM is ready
        and a person cannot write a paragraph in three seconds.
 
-   The server is still responsible for the real controls. See README.
+   The server is still responsible for the real controls. See docs/DEVELOPMENT.md.
    ========================================================================== */
 const MIN_FILL_MS = 3000;
 
