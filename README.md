@@ -308,7 +308,7 @@ In short: Five verticals · Proprietary IP · Reusable accelerators · One integ
 
 ## 12. AI demo catalogue (https://lfiai.com/demos)
 
-**"Every capability, with something you can actually open."** The Linkfields AI demo catalogue has **38 demonstrations** built by Linkfields Innovations across conversational AI, document intelligence, fraud detection, churn, forecasting and risk. **33 are publicly reachable**; 5 run only on the Linkfields corporate network. Reachability last verified 20 October 2026.
+**"Every capability, with something you can actually open."** The Linkfields AI demo catalogue has **40 demonstrations** built by Linkfields Innovations across conversational AI, document intelligence, fraud detection, churn, forecasting and risk. **35 are publicly reachable**; 5 run only on the Linkfields corporate network. Reachability last verified 20 October 2026.
 
 **How to use the catalogue:** search by name, or filter by industry (Banking, Telecom, Insurance, Retail, Manufacturing, Energy, Education, Public sector, Cross-industry) and by technology (Generative AI, Machine learning, Computer vision, Advanced analytics, NLP). Each card opens the live demo in a new tab.
 
@@ -366,6 +366,8 @@ Not finding something? The catalogue grows from client work: tell the Linkfields
 | Equipment Failure & Predictive Maintenance | Predicting equipment failure before it takes the line down. | Energy, Manufacturing | https://equipment.lfidemo.com/ |
 | 360 Customer Behaviour Analytics | Behavioural analytics assembled across every channel a customer uses. | Cross-industry, Retail | https://customeranalytics.lfidemo.com/ |
 | Engage360 | Cross-channel customer engagement. | Cross-industry, Retail | https://engage360.lfidemo.com/ |
+| Network Anomaly Detection | Model-predicted anomalies in per-client network traffic, with the warnings and the explanation behind each one. | Cross-industry | https://anomalydetection.lfidemo.com/ |
+| Port Automation | Safe, auditable switch-port changes and VLAN assignment, run as automation rather than by hand. | Cross-industry | https://portauto.lfidemo.com/ |
 
 ### Internal demos (Linkfields corporate network only, not publicly reachable)
 | Demo | What it does |
@@ -398,7 +400,7 @@ To see an internal demo, contact sales@linkfields.com.
 | Page | Address | What it contains |
 | --- | --- | --- |
 | Homepage | https://lfiai.com/ | The Linkfields corporate profile: who we are, culture, numbers, global reach, portfolios, products, industries, clients, partners, commercial models, why Linkfields, FAQ and contact form. |
-| Demo catalogue | https://lfiai.com/demos | All 38 demonstrations with search and filters. |
+| Demo catalogue | https://lfiai.com/demos | All 40 demonstrations with search and filters. |
 | Classic demo explorer | https://lfiai.com/explore | The original catalogue view, browsable by industry, technology and region. |
 | Banking Analytics | https://lfiai.com/BankingAnalytics | Links to the banking churn and segmentation demos. |
 | Telecom Analytics | https://lfiai.com/TelecomAnalytics | Links to the telecom churn and segmentation demos. |
@@ -423,7 +425,7 @@ The top menu links to: Who we are, Portfolios, Industries, Products and Demos, p
 Linkfields Innovations is a technology partner across five portfolios: Digital Transformation, Intelligent Enterprise Platforms, Data & AI, Talent Advisory & GCC and Cyber Security. It modernises, runs, analyses, secures and scales the enterprise, combining specialist services with its own software and reusable delivery IP. It is headquartered in South Africa and delivers globally.
 
 **What is Linkfields AI / lfiai.com?**
-Linkfields AI is the AI brand of Linkfields Innovations. The lfiai.com website presents the Linkfields corporate profile and a catalogue of 38 working AI and analytics demonstrations.
+Linkfields AI is the AI brand of Linkfields Innovations. The lfiai.com website presents the Linkfields corporate profile and a catalogue of 40 working AI and analytics demonstrations.
 
 **Where is Linkfields based? Where is the head office?**
 Linkfields is headquartered in Midrand, Johannesburg, South Africa (Block H, Midridge Office Estate, International Business Gateway, Cnr 6th Street, Midrand, 1684; phone +27 11 022 6666). It has offices in India (Hyderabad), the United States (New York), the United Arab Emirates (Dubai), Australia (Melbourne) and Botswana (Gaborone). Its offshore delivery centre is in Hyderabad, India, and a United Kingdom (London) presence is launching.
@@ -522,7 +524,7 @@ A 20+ partner ecosystem including Microsoft, Microsoft Azure, AWS Partner Networ
 Great Place To Work certification; Financial Times / Statista Africa's Fastest Growing Companies 2023 (38th in Africa's top 100); B-BBEE Level 1 contributor (Proudly South African); YES (Youth Employment Service) member.
 
 **Can I try Linkfields' AI products before buying?**
-Yes. The demo catalogue at https://lfiai.com/demos lists 38 working demonstrations, 33 of them publicly reachable, across conversational AI, document intelligence, fraud detection, churn, forecasting and risk.
+Yes. The demo catalogue at https://lfiai.com/demos lists 40 working demonstrations, 35 of them publicly reachable, across conversational AI, document intelligence, fraud detection, churn, forecasting and risk.
 
 **Do the demos use my real data?**
 The public demos are demonstrations. For a demo on your own data, contact sales@linkfields.com.

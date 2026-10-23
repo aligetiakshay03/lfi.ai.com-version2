@@ -282,7 +282,7 @@ demo has:
 | `status` | `"live"` or `"offline"` |
 | `tech`, `industries` | Filter tags; keys of `TECH` and `INDUSTRIES` in the same file |
 
-Counts shown on the site ("Browse all 38 demonstrations", the FAQ, `llms.txt`)
+Counts shown on the site ("Browse all 40 demonstrations", the FAQ, `llms.txt`)
 are computed from these arrays, never typed into copy. Demo links were last
 verified reachable on the date in `VERIFIED_ON`.
 

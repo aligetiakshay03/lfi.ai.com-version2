@@ -45,6 +45,8 @@ import { FaUserShield } from "react-icons/fa";
 import { FaFileSignature } from "react-icons/fa";
 import { FaProjectDiagram } from "react-icons/fa";
 import { FaTachometerAlt } from "react-icons/fa";
+import { FaExclamationTriangle } from "react-icons/fa";
+import { FaEthernet } from "react-icons/fa";
 
 export default function Industries() {
   const [selectedCard, setSelectedCard] = useState(null);
@@ -365,6 +367,16 @@ export default function Industries() {
       icon: <FaMagnifyingGlassChart size={32} color="#6f42c1" />,
       path: "https://seo.lfidemo.com/",
     },
+    PortAuto: {
+      name: "Port Automation",
+      icon: <FaEthernet size={32} color="#0d6efd" />,
+      path: "https://portauto.lfidemo.com/",
+    },
+    AnomalyDetection: {
+      name: "Network Anomaly Detection",
+      icon: <FaExclamationTriangle size={32} color="#dc3545" />,
+      path: "https://anomalydetection.lfidemo.com/",
+    },
   };
 
   // Category to apps mapping
@@ -379,7 +391,7 @@ export default function Industries() {
     sports: [],
     media: [],
     hr: [],
-    general: ["FinSight", "Engage360", "EduPilot","TextIQ", "vajraX", "ConsulateSA", "ConsulateLA", "InternalPortal", "SEO"],
+    general: ["FinSight", "Engage360", "EduPilot","TextIQ", "vajraX", "ConsulateSA", "ConsulateLA", "InternalPortal", "SEO", "AnomalyDetection", "PortAuto"],
     banking: ["Customer_Behaviour_Analytics","Banking_Claims_Fraud","NBO","CLV_Analytics_BankingTelecom","BankingAnalytics","BankingTelecomAnalytics","CreditRisk","Digital_Twin","Banking_Sentiment_Analysis", "Streamlit"],
     telecom: ["TelecomAnalytics", "BankingTelecomAnalytics1","Smart_KPI_Monitoring","CLV_Analytics_BankingTelecom","Digital_Twin", "Streamlit"],
     education: [],
@@ -483,7 +495,7 @@ export default function Industries() {
 
   const [selectedSubGroup, setSelectedSubGroup] = useState(null);
 
-  const generalProductApps = ["FinSight", "Engage360", "EduPilot", "TextIQ", "vajraX", "InternalPortal", "SEO"];
+  const generalProductApps = ["FinSight", "Engage360", "EduPilot", "TextIQ", "vajraX", "InternalPortal", "SEO", "AnomalyDetection", "PortAuto"];
   const generalPocApps = ["ConsulateSA", "ConsulateLA"];
 
   const insuranceFraudApps = ["claims_detection", "Signature_Fraud_Detection", "Network_Fraud_Detection"];

@@ -538,6 +538,31 @@ export const demos = [
     productId: "engage360",
   },
 
+  // --- network operations ---------------------------------------------------
+  // Both sit under "General" in the deployed catalogue (src/Pages/Industries.js).
+  {
+    id: "network-anomaly",
+    name: "Network Anomaly Detection",
+    blurb:
+      "Model-predicted anomalies in per-client network traffic, with the warnings and the explanation behind each one.",
+    href: "https://anomalydetection.lfidemo.com/",
+    tech: ["ml", "analytics"],
+    industries: ["crossIndustry"],
+    access: "public",
+    status: "live",
+  },
+  {
+    id: "port-automation",
+    name: "Port Automation",
+    blurb:
+      "Safe, auditable switch-port changes and VLAN assignment, run as automation rather than by hand.",
+    href: "https://portauto.lfidemo.com/",
+    tech: [],
+    industries: ["crossIndustry"],
+    access: "public",
+    status: "live",
+  },
+
   // --- internal-network demos ----------------------------------------------
   // Real, in the repository, and kept working - but they call services on the
   // corporate network. Labelled honestly rather than linked as if public.

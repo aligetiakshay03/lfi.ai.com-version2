@@ -256,7 +256,7 @@ In short: Five verticals · Proprietary IP · Reusable accelerators · One integ
 
 ## 11. AI Demo Catalogue (https://lfiai.com/demos)
 
-"Every capability, with something you can actually open." 38 demonstrations built by Linkfields Innovations across conversational AI, document intelligence, fraud detection, churn, forecasting and risk. 33 are publicly reachable. Reachability last verified 2026-10-20. The catalogue can be filtered by industry and technology.
+"Every capability, with something you can actually open." 40 demonstrations built by Linkfields Innovations across conversational AI, document intelligence, fraud detection, churn, forecasting and risk. 35 are publicly reachable. Reachability last verified 2026-10-20. The catalogue can be filtered by industry and technology.
 
 ### Conversational AI & document intelligence
 | Demo | Description | Industries | Link |
@@ -310,6 +310,8 @@ In short: Five verticals · Proprietary IP · Reusable accelerators · One integ
 | Equipment Failure & Predictive Maintenance | Predicting equipment failure before it takes the line down. | Energy, Manufacturing | https://equipment.lfidemo.com/ |
 | 360 Customer Behaviour Analytics | Behavioural analytics assembled across every channel a customer uses. | Cross-industry, Retail | https://customeranalytics.lfidemo.com/ |
 | Engage360 | Cross-channel customer engagement. | Cross-industry, Retail | https://engage360.lfidemo.com/ |
+| Network Anomaly Detection | Model-predicted anomalies in per-client network traffic, with the warnings and the explanation behind each one. | Cross-industry | https://anomalydetection.lfidemo.com/ |
+| Port Automation | Safe, auditable switch-port changes and VLAN assignment, run as automation rather than by hand. | Cross-industry | https://portauto.lfidemo.com/ |
 
 ### Corporate-network demos (not reachable from outside Linkfields)
 | Demo | Description |
@@ -354,7 +356,7 @@ Five commercial models: Fixed Price, Time & Materials, Managed Service, Dedicate
 A 20+ partner ecosystem including Microsoft, Microsoft Azure, AWS Partner Network, Salesforce, SAP, Oracle, UiPath, Blue Prism, Boomi, Odoo, Zoho and HP.
 
 **Can I try Linkfields' AI products before buying?**
-Yes. The demo catalogue at lfiai.com/demos lists 38 working demonstrations, 33 of them publicly reachable.
+Yes. The demo catalogue at lfiai.com/demos lists 40 working demonstrations, 35 of them publicly reachable.
 
 **How do I contact Linkfields?**
 Email sales@linkfields.com for sales enquiries or info@linkfields.com for general questions. The sales team gets in touch within 24 hours and will sign an NDA if required.
